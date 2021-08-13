@@ -1,0 +1,14 @@
+bpemb
+GPUtil
+matplotlib
+nltk
+numpy
+pandas
+plotly
+psutil
+python-Levenshtein
+regex
+rouge
+scipy
+tensorflow
+tqdm
