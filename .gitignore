@@ -1,4 +1,6 @@
+.DS_Store
 .idea
 __pycache__
+_cache
 _models
 data
