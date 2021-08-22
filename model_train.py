@@ -1,4 +1,4 @@
-from presets import get_preset
+from model_presets import get_preset
 
 
 if __name__ == '__main__':

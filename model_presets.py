@@ -1,4 +1,4 @@
-from nn_graphs import seq, use
+from model_graphs import seq, use
 from model import VecModel, SeqModel
 
 presets = {
