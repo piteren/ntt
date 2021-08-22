@@ -6,29 +6,23 @@ from typing import Dict, Tuple, Optional
 
 from defaults import EMB_SHAPE, MAX_SEQ_LEN, CACHE_FD
 
-from ptools.lipytools.little_methods import r_csv, r_pickle, w_pickle, prep_folder
+from ptools.lipytools.little_methods import r_pickle, w_pickle, prep_folder
 from ptools.lipytools.plots import histogram
+from read_data import read_data
 
 DO_NOT_READ_CACHE = False#True
+LIMIT_DATA_SIZE =   None#50
 
 
-# reads csv data
-def read_data(data_file='data/IMDB Dataset.csv') -> Dict[int,Dict[str,str]]:
-    rows = r_csv(data_file)[1:]
-    #rows = rows[:2000] # to limit data size
-    dataD = {ix: {
-        'text':         d[0],
-        'sentiment':    d[1]} for ix,d in enumerate(rows)}
-    return dataD
 
-# prepares NN train/test tokenized data
-def prep_NN_data(
+# prepares NN train/test bpe tokenized data
+def prep_data_NN_bpe(
         dataD: Optional[Dict[int,Dict[str,str]]]=   None,
         vocab_size=                                 EMB_SHAPE[0],
         emb_width=                                  EMB_SHAPE[1],
         max_seq_len=                                MAX_SEQ_LEN,
         valid_split=                                0.0,
-        test_split=                                 0.2,
+        test_split=                                 0.0,
         seed=                                       123,
         verb=                                       1) -> Tuple[Dict[str,dict], np.ndarray]:
 
@@ -39,7 +33,18 @@ def prep_NN_data(
         lang=   "en",
         vs=     vocab_size,
         dim=    emb_width)
-    if verb>0: print('bpe_tokenization ..')
+
+    if verb>1:
+        print('bpe samples:')
+        for ix in range(len(dataD)):
+            print(dataD[ix]['text'])
+            print(bpemb_en.encode(dataD[ix]['text']))
+            ids = bpemb_en.encode_ids(dataD[ix]['text'])
+            print(ids)
+            print(bpemb_en.decode_ids(ids))
+            print()
+
+    if verb > 0: print('bpe tokenization ..')
     data_tokenized = [{
         'tokens':   bpemb_en.encode_ids(dataD[ix]['text']),
         'label':    0 if dataD[ix]['sentiment'] == 'negative' else 1} for ix in tqdm(range(len(dataD)))]
@@ -78,14 +83,19 @@ def get_NN_data(cache_FN='ntt_data.cache'):
     cache_path = f'{CACHE_FD}/{cache_FN}'
     nnd = r_pickle(cache_path)
     if not nnd or DO_NOT_READ_CACHE:
-        nnd = prep_NN_data()
+        nnd = prep_data_NN_bpe()
         prep_folder(CACHE_FD)
         w_pickle(nnd, cache_path)
     return nnd
 
 
 if __name__ == '__main__':
-    data_split, embeddings = prep_NN_data(verb=2)
+
+    dataD = read_data()
+    for ix in dataD:
+        print(f'{ix:2d} - {dataD[ix]["sentiment"]} : {dataD[ix]["text"][:166]}')
+
+    data_split, embeddings = prep_data_NN_bpe(verb=2)
     print(data_split['train']['tokens'].shape)
     print(data_split['train']['label'].shape)
     print(embeddings.shape)

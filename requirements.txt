@@ -11,4 +11,6 @@ regex
 rouge
 scipy
 tensorflow
+tensorflow_hub
+tensorflow_text
 tqdm

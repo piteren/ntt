@@ -6,12 +6,20 @@ from ptools.neuralmess.layers import lay_dense
 from ptools.neuralmess.encoders import enc_CNN, enc_TNS
 
 
-# average of features of all sequence vectors
-def avg(name: str=              'avg',
+# sequence graph
+def seq(name: str=              'seq',
         emb_shape=              EMB_SHAPE,
-        trainable_emb: bool=    True,#False,
+        trainable_emb: bool=    False,
+        make_cnn=               False,
+        make_tns=               False,
+        make_tat=               False,
+        make_avg=               True,
+        make_max=               True,
         verb=                   1,
         **kwargs):
+
+    tf_reduce = make_avg or make_max
+    assert (make_tat or tf_reduce) and not (make_tat and tf_reduce), 'ERR: seq reduction configuration not valid!'
 
     if verb>0: print(f'nn_graph {name} got under kwargs: {kwargs}')
 
@@ -45,42 +53,60 @@ def avg(name: str=              'avg',
             params=         emb_var_conc,
             ids=            tokens_PH)
         if verb>0: print(f' > feats_lookup: {feats_lookup}')
+        feats = feats_lookup
 
-        enc_out = enc_CNN(
-            input=          feats_lookup,
-            n_layers=       6,
-            n_filters=      50,
-            training_flag=  train_flag_PH)
-        feats_enc = enc_out['output']
-        if verb>0: print(f' > enc_cnn_out: {enc_out}')
+        if make_cnn:
+            enc_out = enc_CNN(
+                input=          feats,
+                n_layers=       6,
+                n_filters=      50,
+                training_flag=  train_flag_PH)
+            if verb>0: print(f' > enc_cnn_out: {enc_out}')
+            feats = enc_out['output']
 
-        enc_out = enc_TNS(
-            in_seq=         feats_enc,
-            seq_out=        False,
-            n_blocks=       1,
-            n_heads=        1,
-            max_seq_len=    MAX_SEQ_LEN)
-        feats_enc = enc_out['output']
-        if verb>0: print(f' > enc_tns_out: {enc_out}')
+        if make_tns:
+            enc_out = enc_TNS(
+                in_seq=         feats,
+                seq_out=        True,
+                n_blocks=       6,
+                n_heads=        1,
+                max_seq_len=    MAX_SEQ_LEN,
+                training_flag=  train_flag_PH)
+            if verb>0: print(f' > enc_tns_out: {enc_out}')
+            feats = enc_out['output']
 
-        feats_mean = tf.math.reduce_mean(
-            input_tensor=   feats_enc,
-            axis=           -2)
-        feats_max = tf.math.reduce_max(
-            input_tensor=   feats_enc,
-            axis=           -2)
+        if make_tat:
+            enc_out = enc_TNS(
+                in_seq=         feats,
+                seq_out=        False,
+                n_blocks=       6,
+                n_heads=        1,
+                max_seq_len=    MAX_SEQ_LEN,
+                training_flag=  train_flag_PH)
+            if verb>0: print(f' > enc_tns_out: {enc_out}')
+            feats = enc_out['output']
 
-        feats_mm = feats_enc#tf.concat([feats_mean,feats_max], axis=-1)
+        sum_feats = []
+        if make_avg:
+            avg = tf.math.reduce_mean(
+                input_tensor=   feats,
+                axis=           -2)
+            if verb>0: print(f' > avg: {avg}')
+            sum_feats.append(avg)
+        if make_max:
+            max = tf.math.reduce_max(
+                input_tensor=   feats,
+                axis=           -2)
+            if verb>0: print(f' > max: {max}')
+            sum_feats.append(max)
+        feats_mm = tf.concat(sum_feats, axis=-1)
         if verb>0: print(f' > feats_mm: {feats_mm}')
 
-        logits = lay_dense(
-            input=          feats_mm,
-            units=          2,
-            activation=     None)
+        logits = lay_dense(input=feats_mm, units=2)
         if verb>0: print(f' > logits: {logits}')
 
-        scce = tf.keras.losses.SparseCategoricalCrossentropy()
-        loss = scce(y_true=labels_PH, y_pred=logits)
+        loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels_PH)
+        loss = tf.reduce_mean(loss)
 
         preds = tf.cast(tf.argmax(logits, axis=-1), dtype=tf.int32)
         acc = tf.reduce_mean(tf.cast(tf.equal(labels_PH,preds), dtype=tf.float32))
@@ -94,6 +120,56 @@ def avg(name: str=              'avg',
         'labels_PH':        labels_PH,
         'oth_vars':         oth_vars,
         'emb_var':          emb_var,
+        'logits':           logits,
+        'loss':             loss,
+        'acc':              acc}
+
+
+def use(name: str=  'use',
+        verb=       1,
+        **kwargs):
+
+    if verb>0: print(f'nn_graph {name} got under kwargs: {kwargs}')
+
+    embeddings_PH = tf.placeholder( # use embeddings placeholder
+        name=   'embeddings_PH',
+        dtype=  tf.float32,
+        shape=  (None,512)) # (batch_size,512)
+    if verb>0: print(f' > embeddings_PH: {embeddings_PH}')
+    train_flag_PH = tf.placeholder(
+        name=   'train_flag_PH',
+        dtype=  tf.bool)
+    labels_PH = tf.placeholder(
+        name=   'labels_PH',
+        dtype=  tf.int32,
+        shape=  None)
+    if verb>0: print(f' > labels_PH: {labels_PH}')
+
+    with tf.variable_scope(name):
+
+        deep = lay_dense(
+            input=          embeddings_PH,
+            units=          100,
+            activation=     tf.nn.relu)
+        if verb>0: print(f' > deep: {deep}')
+
+        logits = lay_dense(
+            input=          deep,
+            units=          2,
+            #activation=     tf.nn.relu
+        )
+        if verb>0: print(f' > logits: {logits}')
+
+        loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels_PH)
+        loss = tf.reduce_mean(loss)
+
+        preds = tf.cast(tf.argmax(logits, axis=-1), dtype=tf.int32)
+        acc = tf.reduce_mean(tf.cast(tf.equal(labels_PH,preds), dtype=tf.float32))
+
+    return {
+        'embeddings_PH':    embeddings_PH,
+        'train_flag_PH':    train_flag_PH,
+        'labels_PH':        labels_PH,
         'logits':           logits,
         'loss':             loss,
         'acc':              acc}

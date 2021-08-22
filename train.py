@@ -1,13 +1,16 @@
 from presets import get_preset
-from model import NNTModel
+
 
 if __name__ == '__main__':
 
-    preset_name = 'avg'
+    #preset_name = 'use'
+    preset_name = 'seq'
+
     preset = get_preset(preset_name)
     fwd_func = preset.pop('nn_graph')
+    model_type = preset.pop('model_type')
 
-    model = NNTModel(
+    model = model_type(
         fwd_func=       fwd_func,
         mdict=          preset,
         name_timestamp= True,
