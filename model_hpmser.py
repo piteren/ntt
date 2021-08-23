@@ -34,5 +34,5 @@ if __name__ == '__main__':
         func=           train_for_score,
         func_defaults=  func_defaults,
         psdd=           psdd,
-        devices=        [0,1]*2,
+        devices=        [0,1]*4,
         verb=           1)

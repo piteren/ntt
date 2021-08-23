@@ -17,7 +17,6 @@ presets = {
         'fwd_func':     use,
         'model_type':   VecModel,
         'use_model':    'U1',
-
         'iLR':          4e-3,
         'psdd': { # done
             'do_clip':      (True, False),
@@ -27,7 +26,6 @@ presets = {
         'fwd_func':     use,
         'model_type':   VecModel,
         'use_model':    'U1',
-
         'make_hidden':  True,
         'hid_width':    768,
         'iLR':          1e-4,
@@ -44,16 +42,21 @@ presets = {
         'fwd_func':     use,
         'model_type':   VecModel,
         'use_model':    'U1',
+
         'make_drt':     True,
 
         'psdd': {
             'drt_shared':   (True,False),
-            'drt_layers':   (2,4,6,8),
+            'drt_layers':   (2,4,6,8,10,12),
             'drt_lay_width':[12,256],
             'drt_dns_scale':[2,7],
             'drt_drop':     [0.0,0.99],
             'do_clip':      (True,False),
-            'iLR':          (1e-5,1e-4,1e-3,1e-2)}
+            'iLR':          (1e-6,3e-6,
+                             1e-5,3e-5,
+                             1e-4,3e-4,
+                             1e-3,3e-3,
+                             1e-2,3e-2)}
     }
 }
 
