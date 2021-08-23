@@ -3,7 +3,7 @@ from defaults import EMB_SHAPE, BPE_STD, MAX_SEQ_LEN
 from ptools.neuralmess.get_tf import tf
 from ptools.neuralmess.base_elements import my_initializer
 from ptools.neuralmess.layers import lay_dense
-from ptools.neuralmess.encoders import enc_CNN, enc_TNS
+from ptools.neuralmess.encoders import enc_CNN, enc_TNS, enc_DRT
 
 
 # sequence graph
@@ -99,7 +99,7 @@ def seq(name: str=              'seq',
                 axis=           -2)
             if verb>0: print(f' > max: {max}')
             sum_feats.append(max)
-        feats_mm = tf.concat(sum_feats, axis=-1)
+        feats_mm = tf.concat(sum_feats, axis=-1) if sum_feats else feats
         if verb>0: print(f' > feats_mm: {feats_mm}')
 
         logits = lay_dense(input=feats_mm, units=2)
@@ -125,8 +125,18 @@ def seq(name: str=              'seq',
         'acc':              acc}
 
 
-def use(name: str=  'use',
-        verb=       1,
+def use(name: str=      'use',
+        verb=           1,
+        # hidden
+        make_hidden=    False,
+        hid_width=      100,
+        # drt
+        make_drt=       False,
+        drt_shared=     False,
+        drt_layers=     6,
+        drt_lay_width=  32,
+        drt_dns_scale=  6,
+        drt_drop=       0.2,
         **kwargs):
 
     if verb>0: print(f'nn_graph {name} got under kwargs: {kwargs}')
@@ -144,20 +154,30 @@ def use(name: str=  'use',
         dtype=  tf.int32,
         shape=  None)
     if verb>0: print(f' > labels_PH: {labels_PH}')
+    feats = embeddings_PH
 
     with tf.variable_scope(name):
 
-        deep = lay_dense(
-            input=          embeddings_PH,
-            units=          100,
-            activation=     tf.nn.relu)
-        if verb>0: print(f' > deep: {deep}')
+        if make_hidden:
+            feats = lay_dense(
+                input=          embeddings_PH,
+                units=          hid_width,
+                activation=     tf.nn.relu)
+            if verb>0: print(f' > hidden: {feats}')
 
-        logits = lay_dense(
-            input=          deep,
-            units=          2,
-            #activation=     tf.nn.relu
-        )
+        if make_drt:
+            drt_out = enc_DRT(
+                input=          feats,
+                shared_lays=    drt_shared,
+                n_layers=       drt_layers,
+                lay_width=      drt_lay_width,
+                dns_scale=      drt_dns_scale,
+                dropout=        drt_drop,
+                training_flag=  train_flag_PH)
+            if verb>0: print(f' > enc_drt_out: {drt_out}')
+            feats = drt_out['output']
+
+        logits = lay_dense(input=feats, units=2)
         if verb>0: print(f' > logits: {logits}')
 
         loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels_PH)
