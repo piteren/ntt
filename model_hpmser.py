@@ -18,9 +18,9 @@ def train_for_score(
 
 if __name__ == '__main__':
 
-    #preset_name = 'use_base'
+    preset_name = 'use_base'
     #preset_name = 'use_hidden'
-    preset_name = 'use_drt'
+    #preset_name = 'use_drt'
 
     preset = get_preset(preset_name)
 

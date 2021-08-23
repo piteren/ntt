@@ -19,7 +19,8 @@ presets = {
         'use_model':    'U1',
         'iLR':          4e-3,
         'psdd': { # done
-            'do_clip':      (True, False),
+            #'do_clip':      (True, False),
+            'do_clip':      False,
             'iLR':          [1e-5, 3e-2]}
     },
     'use_hidden': {
