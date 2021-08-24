@@ -129,14 +129,18 @@ def use(name: str=      'use',
         verb=           1,
         # hidden
         make_hidden=    False,
+        hid_layers=     6,
         hid_width=      100,
+        hid_dropout=    0.2,
         # drt
         make_drt=       False,
         drt_shared=     False,
         drt_layers=     6,
         drt_lay_width=  32,
         drt_dns_scale=  6,
-        drt_drop=       0.2,
+        drt_in_dropout= 0.2,
+        drt_res_dropout=0.2,
+        drt_lay_dropout=0.2,
         **kwargs):
 
     if verb>0: print(f'nn_graph {name} got under kwargs: {kwargs}')
@@ -159,11 +163,19 @@ def use(name: str=      'use',
     with tf.variable_scope(name):
 
         if make_hidden:
-            feats = lay_dense(
-                input=          embeddings_PH,
-                units=          hid_width,
-                activation=     tf.nn.relu)
-            if verb>0: print(f' > hidden: {feats}')
+            for lay in range(hid_layers):
+
+                feats = lay_dense(
+                    input=          feats,
+                    units=          hid_width,
+                    activation=     tf.nn.relu)
+                if verb>0: print(f' > {lay} hidden: {feats}')
+
+                if hid_dropout:
+                    feats = tf.layers.dropout(
+                        inputs=     feats,
+                        rate=       hid_dropout,
+                        training=   train_flag_PH)
 
         if make_drt:
             drt_out = enc_DRT(
@@ -172,7 +184,9 @@ def use(name: str=      'use',
                 n_layers=       drt_layers,
                 lay_width=      drt_lay_width,
                 dns_scale=      drt_dns_scale,
-                dropout=        drt_drop,
+                in_dropout=     drt_in_dropout,
+                res_dropout=    drt_res_dropout,
+                lay_dropout=    drt_lay_dropout,
                 training_flag=  train_flag_PH)
             if verb>0: print(f' > enc_drt_out: {drt_out}')
             feats = drt_out['output']

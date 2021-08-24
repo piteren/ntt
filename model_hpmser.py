@@ -18,21 +18,29 @@ def train_for_score(
 
 if __name__ == '__main__':
 
-    preset_name = 'use_base'
-    #preset_name = 'use_hidden'
-    #preset_name = 'use_drt'
+    presets = [
+        'use_base_U1',
+        #'use_one_hidden'
+        #'use_hidden_stack',
+        #'use_drt',
+        #'seq'
+    ]
 
-    preset = get_preset(preset_name)
+    for preset_name in presets:
 
-    func_defaults = {
-        'fwd_func':     preset.pop('fwd_func'),
-        'model_type':   preset.pop('model_type')}
-    psdd = preset.pop('psdd')
-    func_defaults.update(preset)
+        preset = get_preset(preset_name)
 
-    hpmser_GX(
-        func=           train_for_score,
-        func_defaults=  func_defaults,
-        psdd=           psdd,
-        devices=        [0,1]*4,
-        verb=           1)
+        func_defaults = {
+            'fwd_func':     preset.pop('fwd_func'),
+            'model_type':   preset.pop('model_type')}
+        psdd = preset.pop('psdd')
+        func_defaults.update(preset)
+
+        hpmser_GX(
+            func=           train_for_score,
+            psdd=           psdd,
+            func_defaults=  func_defaults,
+            name=           f'hpmser_for_{preset_name}',
+            devices=        [0,1]*8,
+            n_loops=        1000,
+            verb=           1)
