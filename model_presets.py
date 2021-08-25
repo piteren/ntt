@@ -21,7 +21,10 @@ presets = {
         'model_type':   VecModel,
         'use_model':    'U0',
         'iLR':          4e-3,
-    },
+        'psdd': {
+            'batch_size':   (16,32,64,128,256),
+            'do_clip':      (True, False),
+            'iLR':          [1e-7, 1e-1]}},
 
     'use_base_U1': { # 0.8400
         'fwd_func':     use,
@@ -46,11 +49,8 @@ presets = {
         'psdd': {
             'batch_size':   (16,32,64,128,256),
             'hid_width':    [12,1024],
-            'do_clip':      (True,False),
-            'iLR':          (1e-5,3e-5,
-                             1e-4,3e-4,
-                             1e-3,3e-3,
-                             1e-2,3e-2)}},
+            'do_clip':      (True, False),
+            'iLR':          [1e-7, 1e-1]}},
 
      'use_hidden_stack': { # ???
         'fwd_func':     use,
@@ -58,11 +58,12 @@ presets = {
         'use_model':    'U1',
         'make_hidden':  True,
         'hid_layers':   1,
-        'hid_width':    768,
-        'hid_dropout':  0,
-        'iLR':          1e-4,
-        'do_clip':      True,
+        'hid_width':    543,
+        'hid_dropout':  0.636,
+        'iLR':          1.2e-4,
+        'do_clip':      False,
         'psdd': {
+            'batch_size':   (16,32,64,128,256),
             'hid_layers':   [1,12],
             'hid_width':    [12,1024],
             'hid_dropout':  [0.0,0.99],
@@ -103,7 +104,8 @@ def get_preset(preset_name: str) -> dict:
         'n_batches':    10000,
         'batch_size':   128,
         'do_clip':      False,
-        'iLR':          3e-4}
+        'iLR':          3e-4,
+        'verb':         0}
 
     preset = presets[preset_name]
     for k in defaults:

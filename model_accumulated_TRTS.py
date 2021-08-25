@@ -1,6 +1,7 @@
 from typing import List, Any
 
 from ptools.mpython.omp import OMPRunnerGPU, RunningWorkerGPU
+from ptools.lipytools.stats import msmx
 
 from model_train import train_model
 
@@ -9,15 +10,17 @@ class NNTTrainer(RunningWorkerGPU):
 
     def run(self, preset_name) -> Any:
         return train_model(
-            preset_name=    preset_name,
-            devices=        self.devices,
-            verb=           0)
+            preset_name=        preset_name,
+            devices=            self.devices,
+            hpmser_mode=        True,
+            verb=               0)
 
 
+# accumulated train and test for given preset
 def accumulated_TRTS(
         presets: List[str],
-        devices=        [0,1]*2,
-        num_acc_runs=   10) -> dict:
+        devices=            [0,1]*3,
+        num_acc_runs=       10) -> dict:
 
     ompr = OMPRunnerGPU(
         devices=    devices,
@@ -25,32 +28,30 @@ def accumulated_TRTS(
         verb=       1)
 
     acc_test_results = {}
-
+    tasks = []
     for preset_name in presets:
-        tasks = [{'preset_name':preset_name}] * num_acc_runs
-        results = ompr.process(tasks, exit_after=False)
-        acc_test_results[preset_name] = results
+        acc_test_results[preset_name] = []
+        tasks += [{'preset_name':preset_name}] * num_acc_runs
 
-    ompr.exit()
+    all_results = ompr.process(tasks)
+    for td, res in zip(tasks,all_results):
+        acc_test_results[td['preset_name']].append(res)
 
-    print('Accumulated TRTS results:')
+    print(f'Accumulated ({num_acc_runs}) TRTS results:')
     for k in acc_test_results:
-        print(f'model {k} - {sum(acc_test_results[k])/num_acc_runs:.4f}')
+        stats = msmx(acc_test_results[k])
+        print(f'model: {k:25s} accuracy: mean:{stats["mean"]:.4f}, std:{stats["std"]:.4f}')
     return acc_test_results
 
 
 if __name__ == '__main__':
 
-    presets = [
-        'use_base_U0',
-        'use_base_U1',
-        #'use_one_hidden'
-        #'use_hidden_stack',
-        #'use_drt',
-        #'seq'
-    ]
-
     accumulated_TRTS(
-        presets=    presets,
-        #devices=    None
-    )
+        presets= [
+            'use_base_U0',
+            'use_base_U1',
+            'use_one_hidden'
+            #'use_hidden_stack',
+            #'use_drt',
+            #'seq'
+    ])
