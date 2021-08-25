@@ -27,14 +27,15 @@ def train_model(
 
 if __name__ == '__main__':
 
-    #preset_name = 'use_base_U0'
+    preset_name = 'use_base_U0'
     #preset_name = 'use_base_U1'
-    preset_name = 'use_one_hidden'
+    #preset_name = 'use_one_hidden'
     #preset_name = 'use_drt'
     #preset_name = 'seq'
 
     result = train_model(
         preset_name=    preset_name,
+        devices=        None,
         #hpmser_mode=    True,
     )
     print(result)

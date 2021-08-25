@@ -20,7 +20,7 @@ presets = {
         'fwd_func':     use,
         'model_type':   VecModel,
         'use_model':    'U0',
-        'iLR':          4e-3,
+        'iLR':          0.00316,
         'psdd': {
             'batch_size':   (16,32,64,128,256),
             'do_clip':      (True, False),
