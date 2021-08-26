@@ -49,7 +49,7 @@ presets = {
         'iLR':          1.3e-4,
         'psdd': {
             'batch_size':   (16,32,64,128,256),
-            'hid_width':    [12,1024],
+            'hid_width':    [12, 1024],
             'iLR':          [1e-7, 1e-1],
             'do_clip':      (True, False),}}, # 0.8423
 
@@ -59,17 +59,16 @@ presets = {
         'use_model':    'U1',
         'make_hidden':  True,
         'hid_layers':   1,
-        'hid_width':    543,
-        'hid_dropout':  0.636,
-        'iLR':          1.2e-4,
-        'do_clip':      False,
+        'hid_width':    577,
+        'hid_dropout':  0.584,
+        'iLR':          1.5e-4,
         'psdd': {
             'batch_size':   (16,32,64,128,256),
-            'hid_layers':   [1,12],
-            'hid_width':    [12,1024],
-            'hid_dropout':  [0.0,0.99],
-            'iLR':          [1e-7,1e-1],
-            'do_clip':      (True,False)}}, # ???
+            'hid_layers':   [1, 12],
+            'hid_width':    [12, 1024],
+            'hid_dropout':  [0.0, 0.99],
+            'iLR':          [1e-7, 1e-1],
+            'do_clip':      (True, False)}}, # ???
 
     'use_drt': {
         'fwd_func':         use,
@@ -86,15 +85,15 @@ presets = {
         'iLR':              0.043,
         'do_clip':          True,
         'psdd': {
-            'drt_shared':       (True,False),
-            'drt_layers':       [1,12],
-            'drt_lay_width':    [12,256],
-            'drt_dns_scale':    [2,7],
-            'drt_in_dropout':   [0.0,0.99],
-            'drt_res_dropout':  [0.0,0.99],
-            'drt_lay_dropout':  [0.0,0.99],
-            'do_clip':          (True,False),
-            'iLR':              [1e-7,1e-1]}}, # 0.8307
+            'drt_shared':       (True, False),
+            'drt_layers':       [1, 6],
+            'drt_lay_width':    [12, 768],
+            'drt_dns_scale':    [2, 6],
+            'drt_in_dropout':   [0.0, 0.99],
+            'drt_res_dropout':  [0.0, 0.99],
+            'drt_lay_dropout':  [0.0, 0.99],
+            'iLR':              [1e-7, 1e-1],
+            'do_clip':          (True, False),}}, # 0.8307
 }
 
 

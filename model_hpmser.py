@@ -21,5 +21,6 @@ if __name__ == '__main__':
             func_defaults=  {'preset_name':preset_name},
             name=           f'hpmser_for_{preset_name}',
             devices=        [0,1]*10,
+            adv_config_upd= 1000,
             n_loops=        2000,
             verb=           1)

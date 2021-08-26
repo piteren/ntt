@@ -18,7 +18,7 @@ class NNTTrainer(RunningWorkerGPU):
 # accumulated train and test for given preset
 def accumulated_TRTS(
         presets: List[str],
-        devices=            [0,1]*3,
+        devices=            [0,1]*5,
         num_acc_runs=       30) -> dict:
 
     ompr = OMPRunnerGPU(
@@ -49,8 +49,8 @@ if __name__ == '__main__':
         presets= [
             'use_base_U0',
             'use_base_U1',
-            'use_one_hidden'
-            #'use_hidden_stack',
+            'use_one_hidden',
+            'use_hidden_stack',
             #'use_drt',
             #'seq'
     ])
