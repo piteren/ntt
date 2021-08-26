@@ -15,13 +15,11 @@ def seq(name: str=              'seq',
         make_tat=               False,
         make_avg=               True,
         make_max=               True,
-        verb=                   1,
-        **kwargs):
+        seed=                   123,
+        verb=                   1):
 
     tf_reduce = make_avg or make_max
     assert (make_tat or tf_reduce) and not (make_tat and tf_reduce), 'ERR: seq reduction configuration not valid!'
-
-    if verb>0: print(f'nn_graph {name} got under kwargs: {kwargs}')
 
     tokens_PH = tf.compat.v1.placeholder( # tokens placeholder (seq input - IDs)
         name=   'tokens_PH',
@@ -125,25 +123,23 @@ def seq(name: str=              'seq',
         'acc':              acc}
 
 
-def use(name: str=      'use',
-        verb=           1,
-        # hidden
-        make_hidden=    False,
-        hid_layers=     6,
-        hid_width=      100,
-        hid_dropout=    0.2,
-        # drt
-        make_drt=       False,
-        drt_shared=     False,
-        drt_layers=     6,
-        drt_lay_width=  32,
-        drt_dns_scale=  6,
-        drt_in_dropout= 0.2,
-        drt_res_dropout=0.2,
-        drt_lay_dropout=0.2,
-        **kwargs):
-
-    if verb>0: print(f'nn_graph {name} got under kwargs: {kwargs}')
+def use(name: str=          'use',
+            # hidden
+        make_hidden=        False,
+        hid_layers=         6,
+        hid_width=          100,
+        hid_dropout=        0.2,
+            # drt
+        make_drt=           False,
+        drt_shared=         False,
+        drt_layers=         6,
+        drt_lay_width=      32,
+        drt_dns_scale=      6,
+        drt_in_dropout=     0.2,
+        drt_res_dropout=    0.2,
+        drt_lay_dropout=    0.2,
+        seed=               123,
+        verb=               1):
 
     embeddings_PH = tf.placeholder( # use embeddings placeholder
         name=   'embeddings_PH',
@@ -168,14 +164,16 @@ def use(name: str=      'use',
                 feats = lay_dense(
                     input=          feats,
                     units=          hid_width,
-                    activation=     tf.nn.relu)
+                    activation=     tf.nn.relu,
+                    seed=           seed)
                 if verb>0: print(f' > {lay} hidden: {feats}')
 
                 if hid_dropout:
                     feats = tf.layers.dropout(
                         inputs=     feats,
                         rate=       hid_dropout,
-                        training=   train_flag_PH)
+                        training=   train_flag_PH,
+                        seed=       seed)
 
         if make_drt:
             drt_out = enc_DRT(
@@ -187,11 +185,15 @@ def use(name: str=      'use',
                 in_dropout=     drt_in_dropout,
                 res_dropout=    drt_res_dropout,
                 lay_dropout=    drt_lay_dropout,
-                training_flag=  train_flag_PH)
+                training_flag=  train_flag_PH,
+                seed=           seed)
             if verb>0: print(f' > enc_drt_out: {drt_out}')
             feats = drt_out['output']
 
-        logits = lay_dense(input=feats, units=2)
+        logits = lay_dense(
+            input=  feats,
+            units=  2,
+            seed=   seed)
         if verb>0: print(f' > logits: {logits}')
 
         loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels_PH)

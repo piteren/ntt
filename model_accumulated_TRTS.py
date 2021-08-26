@@ -12,15 +12,14 @@ class NNTTrainer(RunningWorkerGPU):
         return train_model(
             preset_name=        preset_name,
             devices=            self.devices,
-            hpmser_mode=        True,
-            verb=               0)
+            hpmser_mode=        True)
 
 
 # accumulated train and test for given preset
 def accumulated_TRTS(
         presets: List[str],
         devices=            [0,1]*3,
-        num_acc_runs=       10) -> dict:
+        num_acc_runs=       30) -> dict:
 
     ompr = OMPRunnerGPU(
         devices=    devices,

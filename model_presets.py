@@ -16,43 +16,44 @@ presets = {
     },
 
     # ************************************************************************** USE models
-    'use_base_U0': { # 0.8400
+    'use_base_U0': {
         'fwd_func':     use,
         'model_type':   VecModel,
         'use_model':    'U0',
-        'iLR':          0.00316,
+        'iLR':          3.83e-3,
+        'do_clip':      True,
         'psdd': {
             'batch_size':   (16,32,64,128,256),
-            'do_clip':      (True, False),
-            'iLR':          [1e-7, 1e-1]}},
+            'iLR':          [1e-7, 1e-1],
+            'do_clip':      (True, False)}}, # 0.8406
 
-    'use_base_U1': { # 0.8400
+    'use_base_U1': {
         'fwd_func':     use,
         'model_type':   VecModel,
         'use_model':    'U1',
-        'iLR':          4e-3,
+        'iLR':          3.81e-3,
+        'do_clip':      True,
         'psdd': {
             'batch_size':   (16,32,64,128,256),
-            'do_clip':      (True, False),
-            'iLR':          [1e-7, 1e-1]}},
+            'iLR':          [1e-7, 1e-1],
+            'do_clip':      (True, False)}}, # 0.8406
 
-    'use_one_hidden': { # 0.8423
+    'use_one_hidden': {
         'fwd_func':     use,
         'model_type':   VecModel,
         'use_model':    'U1',
         'make_hidden':  True,
         'hid_layers':   1,
-        'hid_width':    768,
+        'hid_width':    561,
         'hid_dropout':  0,
-        'iLR':          1e-4,
-        'do_clip':      True,
+        'iLR':          1.3e-4,
         'psdd': {
             'batch_size':   (16,32,64,128,256),
             'hid_width':    [12,1024],
-            'do_clip':      (True, False),
-            'iLR':          [1e-7, 1e-1]}},
+            'iLR':          [1e-7, 1e-1],
+            'do_clip':      (True, False),}}, # 0.8423
 
-     'use_hidden_stack': { # ???
+    'use_hidden_stack': {
         'fwd_func':     use,
         'model_type':   VecModel,
         'use_model':    'U1',
@@ -67,10 +68,10 @@ presets = {
             'hid_layers':   [1,12],
             'hid_width':    [12,1024],
             'hid_dropout':  [0.0,0.99],
-            'do_clip':      (True,False),
-            'iLR':          [1e-7,1e-1]}},
+            'iLR':          [1e-7,1e-1],
+            'do_clip':      (True,False)}}, # ???
 
-    'use_drt': { # 0.8307
+    'use_drt': {
         'fwd_func':         use,
         'model_type':       VecModel,
         'use_model':        'U1',
@@ -93,7 +94,7 @@ presets = {
             'drt_res_dropout':  [0.0,0.99],
             'drt_lay_dropout':  [0.0,0.99],
             'do_clip':          (True,False),
-            'iLR':              [1e-7,1e-1]}}
+            'iLR':              [1e-7,1e-1]}}, # 0.8307
 }
 
 
@@ -105,6 +106,7 @@ def get_preset(preset_name: str) -> dict:
         'batch_size':   128,
         'do_clip':      False,
         'iLR':          3e-4,
+        'seed':         123,
         'verb':         0}
 
     preset = presets[preset_name]

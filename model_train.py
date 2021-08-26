@@ -6,36 +6,33 @@ def train_model(
         hpmser_mode=        False,
         devices=            -1,
         return_ts_acc_max=  False,
-        save=               True,
         verb=               1,
         **kwargs):
     preset = get_preset(preset_name)
-    fwd_func = preset.pop('fwd_func')
     model_type = preset.pop('model_type')
     preset.update(kwargs)
+    preset['verb'] = verb
     model = model_type(
-        fwd_func=       fwd_func,
-        mdict=          preset,
-        hpmser_mode=    hpmser_mode,
-        name_timestamp= True,
-        devices=        devices,
-        read_only=      not save,
-        do_logfile=     not save,
-        verb=           verb)
+        devices=            devices,
+        hpmser_mode=        hpmser_mode,
+        name_timestamp=     True,
+        silent_TF_warnings= True,
+        **preset)
     return model.train(return_ts_acc_max=return_ts_acc_max)
 
 
 if __name__ == '__main__':
 
-    preset_name = 'use_base_U0'
+    #preset_name = 'use_base_U0'
     #preset_name = 'use_base_U1'
     #preset_name = 'use_one_hidden'
+    preset_name = 'use_hidden_stack'
     #preset_name = 'use_drt'
     #preset_name = 'seq'
 
     result = train_model(
         preset_name=    preset_name,
-        devices=        None,
+        #devices=        None,
         #hpmser_mode=    True,
     )
     print(result)

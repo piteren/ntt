@@ -7,10 +7,10 @@ from model_train import train_model
 if __name__ == '__main__':
 
     presets = [
-        'use_base_U0',
-        'use_base_U1',
-        'use_one_hidden',
-        #'use_hidden_stack',
+        #'use_base_U0',
+        #'use_base_U1',
+        #'use_one_hidden',
+        'use_hidden_stack',
         #'use_drt',
     ]
 
