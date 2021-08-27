@@ -1,3 +1,4 @@
+import random
 from typing import List, Any
 
 from ptools.mpython.omp import OMPRunnerGPU, RunningWorkerGPU
@@ -31,6 +32,7 @@ def accumulated_TRTS(
     for preset_name in presets:
         acc_test_results[preset_name] = []
         tasks += [{'preset_name':preset_name}] * num_acc_runs
+    random.shuffle(tasks) # shuffle tasks for balanced load
 
     all_results = ompr.process(tasks)
     for td, res in zip(tasks,all_results):

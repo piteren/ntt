@@ -51,7 +51,7 @@ presets = {
             'batch_size':   (16,32,64,128,256),
             'hid_width':    [12, 1024],
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False),}}, # 0.8423
+            'do_clip':      (True, False),}}, # 0.8427
 
     'use_hidden_stack': {
         'fwd_func':     use,
@@ -68,7 +68,7 @@ presets = {
             'hid_width':    [12, 1024],
             'hid_dropout':  [0.0, 0.99],
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False)}}, # ???
+            'do_clip':      (True, False)}}, # 0.8449
 
     'use_drt': {
         'fwd_func':         use,
