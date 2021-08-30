@@ -23,7 +23,7 @@ def evaluate_param(
         rng: list,              # param range
         preset_name: str,
         log=            False,  # log / lin scale
-        num_samples=    300,
+        num_samples=    100,
         devices=        [0,1]*5):
 
     seed = [1/num_samples * x for x in range(num_samples)]
@@ -53,20 +53,24 @@ def evaluate_param(
         name=       f'eval_{param}_for_{preset_name}',
         save_FD=    save_FD,
         xlogscale=  log,
-        legend_loc= 'lower right')
+        #legend_loc= 'lower right'
+    )
 
 
 if __name__ == '__main__':
 
     eval_base = {
         'param':    'iLR',
-        'rng':      [1e-6, 1e-0],
-        'log':      True}
+        #'rng':      [1e-6, 1e-0],
+        'rng':      [1e-3, 1e-1],
+        #'log':      True
+    }
 
     for preset in [
         'use_base_U1',
-        'use_one_hidden',
-        'use_hidden_stack']:
+        #'use_one_hidden',
+        #'use_hidden_stack'
+    ]:
 
         ed = {}
         ed.update(eval_base)

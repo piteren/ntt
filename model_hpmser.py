@@ -7,11 +7,11 @@ from model_train import train_model
 if __name__ == '__main__':
 
     presets_dm = [
-        #('use_base_U0',         10),
+        ('use_base_U0',         10),
         #('use_base_U1',         10),
         #('use_one_hidden',      10),
         #('use_hidden_stack',    10),
-        ('use_more',            10),
+        #('use_more',            10),
         #('use_drt',             10),
     ]
 
@@ -22,6 +22,6 @@ if __name__ == '__main__':
             func_defaults=  {'preset_name':preset_name},
             name=           f'hpmser_for_{preset_name}',
             devices=        [0,1]*dm,
-            config_upd=     3600,#None,
+            config_upd=     100,#None,
             #n_loops=        2000,
             verb=           1)
