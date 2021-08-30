@@ -2,7 +2,7 @@ from model_presets import get_preset
 
 # single train and test of model
 def train_model(
-        preset_name:str,
+        preset_name: str,
         hpmser_mode=        False,
         devices=            -1,
         return_ts_acc_max=  False,

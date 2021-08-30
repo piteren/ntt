@@ -49,10 +49,11 @@ if __name__ == '__main__':
 
     accumulated_TRTS(
         presets= [
-            'use_base_U0',
-            'use_base_U1',
-            'use_one_hidden',
-            'use_hidden_stack',
+            #'use_base_U0',
+            #'use_base_U1',
+            #'use_one_hidden',
+            #'use_hidden_stack',
+            'use_more',
             #'use_drt',
             #'seq'
     ])

@@ -209,3 +209,91 @@ def use(name: str=          'use',
         'logits':           logits,
         'loss':             loss,
         'acc':              acc}
+
+
+def use_more(
+        name: str=      'use_more',
+        n_layers=       2,
+        shared_lays=    False,
+        do_norm=        True,
+        play_dropout=   0.2,
+        alay_dropout=   0.2,
+        res_dropout=    0.2,
+        seed=           123,
+        verb=           1):
+
+    embeddings_PH = tf.placeholder( # use embeddings placeholder
+        name=   'embeddings_PH',
+        dtype=  tf.float32,
+        shape=  (None,512)) # (batch_size,512)
+    if verb>0: print(f' > embeddings_PH: {embeddings_PH}')
+    train_flag_PH = tf.placeholder(
+        name=   'train_flag_PH',
+        dtype=  tf.bool)
+    labels_PH = tf.placeholder(
+        name=   'labels_PH',
+        dtype=  tf.int32,
+        shape=  None)
+    if verb>0: print(f' > labels_PH: {labels_PH}')
+    feats = embeddings_PH
+
+    with tf.variable_scope(name):
+
+        for lay in range(n_layers):
+
+            lay_name = f'lay_shared' if shared_lays else f'lay_{lay}'
+            with tf.variable_scope(name_or_scope=lay_name, reuse=tf.AUTO_REUSE):
+
+                lay_feats = feats
+                if do_norm:
+                    lay_feats = tf.keras.layers.LayerNormalization(axis=-1)(lay_feats)
+
+                if play_dropout:
+                    lay_feats = tf.layers.dropout(
+                        inputs=     lay_feats,
+                        rate=       play_dropout,
+                        training=   train_flag_PH,
+                        seed=       seed)
+
+                lay_feats = lay_dense(
+                    input=          lay_feats,
+                    units=          512,
+                    activation=     tf.nn.relu,
+                    seed=           seed)
+                if verb>0: print(f' > {lay} hidden: {feats}')
+
+                if alay_dropout:
+                    lay_feats = tf.layers.dropout(
+                        inputs=     lay_feats,
+                        rate=       alay_dropout,
+                        training=   train_flag_PH,
+                        seed=       seed)
+
+                if res_dropout:
+                    feats = tf.layers.dropout(
+                        inputs=     feats,
+                        rate=       res_dropout,
+                        training=   train_flag_PH,
+                        seed=       seed)
+
+                feats += lay_feats
+
+        logits = lay_dense(
+            input=  feats,
+            units=  2,
+            seed=   seed)
+        if verb>0: print(f' > logits: {logits}')
+
+        loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels_PH)
+        loss = tf.reduce_mean(loss)
+
+        preds = tf.cast(tf.argmax(logits, axis=-1), dtype=tf.int32)
+        acc = tf.reduce_mean(tf.cast(tf.equal(labels_PH,preds), dtype=tf.float32))
+
+    return {
+        'embeddings_PH':    embeddings_PH,
+        'train_flag_PH':    train_flag_PH,
+        'labels_PH':        labels_PH,
+        'logits':           logits,
+        'loss':             loss,
+        'acc':              acc}

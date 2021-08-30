@@ -1,6 +1,6 @@
 from copy import deepcopy
 
-from model_graphs import seq, use
+from model_graphs import seq, use, use_more
 from model import VecModel, SeqModel
 
 
@@ -51,40 +51,55 @@ presets = {
             'batch_size':   (16,32,64,128,256),
             'hid_width':    [12, 1024],
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False),}}, # 0.8427
+            'do_clip':      (True, False)}}, # 0.8428
 
     'use_hidden_stack': {
         'fwd_func':     use,
         'model_type':   VecModel,
         'use_model':    'U1',
         'make_hidden':  True,
-        'hid_layers':   1,
-        'hid_width':    577,
-        'hid_dropout':  0.584,
-        'iLR':          1.5e-4,
+        'hid_layers':   2,
+        'hid_width':    465,
+        'hid_dropout':  0.886,
+        'iLR':          1.9e-4,
         'psdd': {
             'batch_size':   (16,32,64,128,256),
             'hid_layers':   [1, 12],
             'hid_width':    [12, 1024],
             'hid_dropout':  [0.0, 0.99],
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False)}}, # 0.8449
+            'do_clip':      (True, False)}}, # 0.8460
+
+    'use_more': {
+        'fwd_func':     use_more,
+        'model_type':   VecModel,
+        'use_model':    'U1',
+        'psdd': {
+            'batch_size':   (16,32,64,128,256),
+            'n_layers':     [1, 12],
+            'shared_lays':  (True, False),
+            'do_norm':      (True, False),
+            'play_dropout': [0.0, 0.99],
+            'alay_dropout': [0.0, 0.99],
+            'res_dropout':  [0.0, 0.99],
+            'iLR':          [1e-7, 1e-1],
+            'do_clip':      (True, False)}}, # ???
 
     'use_drt': {
         'fwd_func':         use,
         'model_type':       VecModel,
         'use_model':        'U1',
         'make_drt':         True,
-        'drt_shared':       False,
+        'drt_shared':       True,
         'drt_layers':       1,
-        'drt_lay_width':    55,
+        'drt_lay_width':    574,
         'drt_dns_scale':    4,
-        'drt_in_dropout':   0.2,
-        'drt_res_dropout':  0.2,
-        'drt_lay_dropout':  0.2,
-        'iLR':              0.043,
-        'do_clip':          True,
+        'drt_in_dropout':   0.388,
+        'drt_res_dropout':  0.485,
+        'drt_lay_dropout':  0.982,
+        'iLR':              2.1e-2,
         'psdd': {
+            'batch_size':       (16,32,64,128,256),
             'drt_shared':       (True, False),
             'drt_layers':       [1, 6],
             'drt_lay_width':    [12, 768],
@@ -93,12 +108,13 @@ presets = {
             'drt_res_dropout':  [0.0, 0.99],
             'drt_lay_dropout':  [0.0, 0.99],
             'iLR':              [1e-7, 1e-1],
-            'do_clip':          (True, False),}}, # 0.8307
+            'do_clip':          (True, False)}}, # 0.8317
 }
 
 
 def get_preset(preset_name: str) -> dict:
 
+    # do not ever change defaults (eventually may add new)
     defaults = {
         'name':         preset_name,
         'n_batches':    10000,
