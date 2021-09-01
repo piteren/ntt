@@ -23,6 +23,7 @@ def evaluate_param(
         rng: list,              # param range
         preset_name: str,
         log=            False,  # log / lin scale
+        type_int=       False,  # False for float else int
         num_samples=    100,
         devices=        [0,1]*5):
 
@@ -32,6 +33,7 @@ def evaluate_param(
     params = [rng[0] + (rng[1]-rng[0]) * s for s in seed]
     if log:
         params = [10 ** p for p in params]
+    if type_int: params = list(set([int(p) for p in params]))
 
     tasks = [{
         'preset_name':  preset_name,
@@ -59,16 +61,25 @@ def evaluate_param(
 
 if __name__ == '__main__':
 
+    """
+    # iLR
     eval_base = {
         'param':    'iLR',
         #'rng':      [1e-6, 1e-0],
         'rng':      [1e-3, 1e-1],
         #'log':      True
     }
+    """
+    # hid_width
+    eval_base = {
+        'param':    'hid_width',
+        'rng':      [2, 1200],
+        'type_int': True,
+    }
 
     for preset in [
-        'use_base_U1',
-        #'use_one_hidden',
+        #'use_base_U1',
+        'use_one_hidden',
         #'use_hidden_stack'
     ]:
 
