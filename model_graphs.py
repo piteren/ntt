@@ -213,6 +213,8 @@ def use(name: str=          'use',
 
 def use_more(
         name: str=      'use_more',
+        do_projection=  True,
+        proj_width=     256,
         n_layers=       2,
         shared_lays=    False,
         do_norm=        True,
@@ -239,6 +241,12 @@ def use_more(
 
     with tf.variable_scope(name):
 
+        if do_projection:
+            feats = lay_dense(
+                input=          feats,
+                units=          proj_width,
+                seed=           seed)
+
         for lay in range(n_layers):
 
             lay_name = f'lay_shared' if shared_lays else f'lay_{lay}'
@@ -257,7 +265,7 @@ def use_more(
 
                 lay_feats = lay_dense(
                     input=          lay_feats,
-                    units=          512,
+                    units=          proj_width if do_projection else 512,
                     activation=     tf.nn.relu,
                     seed=           seed)
                 if verb>0: print(f' > {lay} hidden: {feats}')

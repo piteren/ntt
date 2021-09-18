@@ -16,7 +16,7 @@ presets = {
     },
 
     # ************************************************************************** USE models
-    'use_base_U0': {
+    'use_base_U0': { # USE U0 to logits
         'fwd_func':     use,
         'model_type':   VecModel,
         'use_model':    'U0',
@@ -27,7 +27,7 @@ presets = {
             'iLR':          [1e-7, 1e-1],
             'do_clip':      (True, False)}}, # 0.8406
 
-    'use_base_U1': {
+    'use_base_U1': { # USE U1 to logits
         'fwd_func':     use,
         'model_type':   VecModel,
         'use_model':    'U1',
@@ -38,7 +38,7 @@ presets = {
             'iLR':          [1e-7, 1e-1],
             'do_clip':      (True, False)}}, # 0.8406
 
-    'use_one_hidden': {
+    'use_one_hidden': { # USE with one hidden layer (search for width, no drop)
         'fwd_func':     use,
         'model_type':   VecModel,
         'use_model':    'U1',
@@ -53,39 +53,26 @@ presets = {
             'iLR':          [1e-7, 1e-1],
             'do_clip':      (True, False)}}, # 0.8428
 
-    'use_hidden_stack': {
+    'use_hidden_stack': { # USE with MORE hidden layers, allowed dropout
         'fwd_func':     use,
         'model_type':   VecModel,
         'use_model':    'U1',
+        'batch_size':   256,
         'make_hidden':  True,
-        'hid_layers':   2,
-        'hid_width':    465,
-        'hid_dropout':  0.886,
-        'iLR':          1.9e-4,
+        'hid_layers':   1,
+        'hid_width':    630,
+        'hid_dropout':  0.917,
+        'iLR':          4.3e-4,
+        'do_clip':      True,
         'psdd': {
             'batch_size':   (16,32,64,128,256),
             'hid_layers':   [1, 12],
             'hid_width':    [12, 1024],
             'hid_dropout':  [0.0, 0.99],
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False)}}, # 0.8460
+            'do_clip':      (True, False)}}, # 0.8472
 
-    'use_more': {
-        'fwd_func':     use_more,
-        'model_type':   VecModel,
-        'use_model':    'U1',
-        'psdd': {
-            'batch_size':   (16,32,64,128,256),
-            'n_layers':     [1, 12],
-            'shared_lays':  (True, False),
-            'do_norm':      (True, False),
-            'play_dropout': [0.0, 0.99],
-            'alay_dropout': [0.0, 0.99],
-            'res_dropout':  [0.0, 0.99],
-            'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False)}}, # ???
-
-    'use_drt': {
+    'use_drt': { # USE with DRT encoder
         'fwd_func':         use,
         'model_type':       VecModel,
         'use_model':        'U1',
@@ -109,12 +96,37 @@ presets = {
             'drt_lay_dropout':  [0.0, 0.99],
             'iLR':              [1e-7, 1e-1],
             'do_clip':          (True, False)}}, # 0.8317
-}
 
+    'use_more': { # experiments for DRT replacement
+        'fwd_func':         use_more,
+        'model_type':       VecModel,
+        'use_model':        'U1',
+        'do_projection':    False,
+        'n_layers':         1,
+        'shared_lays':      False,
+        'do_norm':          False,
+        'play_dropout':     0.655,
+        'alay_dropout':     0.334,
+        'res_dropout':      0.01,
+        'iLR':              1.7e-3,
+        'do_clip':          False,
+        'psdd': {
+            'batch_size':       (16,32,64,128,256),
+            'do_projection':    (True, False),
+            'proj_width':       [12, 1024],
+            'n_layers':         [1, 12],
+            'shared_lays':      (True, False),
+            'do_norm':          (True, False),
+            'play_dropout':     [0.0, 0.99],
+            'alay_dropout':     [0.0, 0.99],
+            'res_dropout':      [0.0, 0.99],
+            'iLR':              [1e-7, 1e-1],
+            'do_clip':          (True, False)}}, # ???
+}
 
 def get_preset(preset_name: str) -> dict:
 
-    # do not ever change defaults (eventually may add new)
+    # DO NOT ever change defaults (eventually may add new)
     defaults = {
         'name':         preset_name,
         'n_batches':    10000,

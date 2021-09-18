@@ -24,7 +24,7 @@ def evaluate_param(
         preset_name: str,
         log=            False,  # log / lin scale
         type_int=       False,  # False for float else int
-        num_samples=    100,
+        num_samples=    300,
         devices=        [0,1]*5):
 
     seed = [1/num_samples * x for x in range(num_samples)]
@@ -55,7 +55,7 @@ def evaluate_param(
         name=       f'eval_{param}_for_{preset_name}',
         save_FD=    save_FD,
         xlogscale=  log,
-        #legend_loc= 'lower right'
+        legend_loc= 'lower right'
     )
 
 
@@ -80,7 +80,7 @@ if __name__ == '__main__':
     for preset in [
         #'use_base_U1',
         'use_one_hidden',
-        #'use_hidden_stack'
+        'use_hidden_stack'
     ]:
 
         ed = {}
