@@ -34,19 +34,19 @@ presets = {
         'tns_n_heads':      5,      # all
         'tns_dense_mul':    4,      # 4-5
         'tns_dropout':      0.81,   # >0.5
-        'tns_dropout_att':  0.02,   # 0
+        #'tns_dropout_att':  0.02,   # 0
         'iLR':              8.8e-5, # e-4 - e-5
         'do_clip':          False,
         'reduce':           'avg_max',
         'psdd': {
-            'batch_size':       (16,32,64,128,256),
+            'batch_size':       (64,128,256),#(16,32,64,128,256),
             'tns_shared_lays':  (True, False),
-            'tns_n_blocks':     [1, 6],
+            'tns_n_blocks':     [2, 6],
             'tns_n_heads':      (1, 2, 5),
-            'tns_dense_mul':    [1, 6],
-            'tns_dropout':      [0.0, 0.99],
-            'tns_dropout_att':  [0.0, 0.99],
-            'iLR':              [1e-7, 1e-1],
+            'tns_dense_mul':    [2, 6],
+            'tns_dropout':      [0.5, 0.99],
+            #'tns_dropout_att':  [0.0, 0.99],
+            'iLR':              [1e-6, 1e-4],
             'do_clip':          (True, False)}}, # 0.7877(seq 100 with about 400 runs)
 
     # ************************************************************************** USE models

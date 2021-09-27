@@ -23,7 +23,7 @@ if __name__ == '__main__':
             psdd=           get_preset(preset_name).pop('psdd'),
             func_defaults=  {'preset_name':preset_name},
             name=           f'hpmser_for_{preset_name}',
-            devices=        [0,1]*dm,
+            devices=        [0]*dm*2,#[0,1]*dm,
             #config_upd=     100,#None,
             #n_loops=        2000,
             verb=           1)
