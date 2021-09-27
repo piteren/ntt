@@ -9,7 +9,7 @@ from tqdm import tqdm
 from read_stanford_imdb import read_stanford_imdb, SAMPLE, SPLITS, report_about_data
 from defaults import EMB_SHAPE, MAX_SEQ_LEN, CACHE_FD
 
-from ptools.lipytools.little_methods import w_pickle
+from ptools.lipytools.little_methods import prep_folder, w_pickle
 from ptools.lipytools.plots import histogram
 
 
@@ -131,8 +131,8 @@ def build_BPE_cache():
     data_splits, embs = prep_BPE_data(verb=2)
     cache_FN = f'data_BPE.cache'
     cache_path = f'{CACHE_FD}/{cache_FN}'
+    prep_folder(CACHE_FD)
     w_pickle((data_splits, embs), cache_path)
-
 
 
 if __name__ == '__main__':
