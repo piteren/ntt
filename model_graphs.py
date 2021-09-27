@@ -10,15 +10,32 @@ from ptools.neuralmess.encoders import enc_CNN, enc_TNS, enc_DRT
 def seq(name: str=              'seq',
         emb_shape=              EMB_SHAPE,
         trainable_emb: bool=    False,
+
         make_cnn=               False,
+        cnn_shared_lays=        False,
+        cnn_n_layers :int=      12,
+        cnn_kernel :int=        3,
+        cnn_n_filters :int=     128,
+        cnn_lay_drop=           0.0,
+        cnn_ldrt_scale=         0,
+        cnn_ldrt_res_drop=      0.0,
+        cnn_ldrt_lay_drop=      0.0,
+
         make_tns=               False,
+        tns_shared_lays=        False,
+        tns_n_blocks=           6,
+        tns_n_heads=            1,
+        tns_dense_mul=          4,
+        tns_dropout=            0.0,
+        tns_dropout_att=        0.0,
+
         make_tat=               False,
-        make_avg=               True,
-        make_max=               True,
+
+        reduce=                 'avg_max', # valid are: None,'avg','max','avg_max'
         seed=                   123,
         verb=                   1):
 
-    tf_reduce = make_avg or make_max
+    tf_reduce = reduce is not None
     assert (make_tat or tf_reduce) and not (make_tat and tf_reduce), 'ERR: seq reduction configuration not valid!'
 
     tokens_PH = tf.compat.v1.placeholder( # tokens placeholder (seq input - IDs)
@@ -56,9 +73,17 @@ def seq(name: str=              'seq',
         if make_cnn:
             enc_out = enc_CNN(
                 input=          feats,
-                n_layers=       6,
-                n_filters=      50,
-                training_flag=  train_flag_PH)
+                shared_lays=    cnn_shared_lays,
+                n_layers=       cnn_n_layers,
+                kernel=         cnn_kernel,
+                n_filters=      cnn_n_filters,
+                lay_drop=       cnn_lay_drop,
+                ldrt_scale=     cnn_ldrt_scale,
+                ldrt_res_drop=  cnn_ldrt_res_drop,
+                ldrt_lay_drop=  cnn_ldrt_lay_drop,
+                training_flag=  train_flag_PH,
+                seed=           seed,
+                n_hist=         0)
             if verb>0: print(f' > enc_cnn_out: {enc_out}')
             feats = enc_out['output']
 
@@ -66,32 +91,41 @@ def seq(name: str=              'seq',
             enc_out = enc_TNS(
                 in_seq=         feats,
                 seq_out=        True,
-                n_blocks=       6,
-                n_heads=        1,
+                shared_lays=    tns_shared_lays,
+                n_blocks=       tns_n_blocks,
+                n_heads=        tns_n_heads,
+                dense_mul=      tns_dense_mul,
+                dropout=        tns_dropout,
+                dropout_att=    tns_dropout_att,
                 max_seq_len=    MAX_SEQ_LEN,
-                training_flag=  train_flag_PH)
+                training_flag=  train_flag_PH,
+                seed=           seed,
+                n_hist=         0)
             if verb>0: print(f' > enc_tns_out: {enc_out}')
             feats = enc_out['output']
 
         if make_tat:
             enc_out = enc_TNS(
+                name=           'enc_TAT',
                 in_seq=         feats,
                 seq_out=        False,
                 n_blocks=       6,
                 n_heads=        1,
                 max_seq_len=    MAX_SEQ_LEN,
-                training_flag=  train_flag_PH)
+                training_flag=  train_flag_PH,
+                seed=           seed,
+                n_hist=         0)
             if verb>0: print(f' > enc_tns_out: {enc_out}')
             feats = enc_out['output']
 
         sum_feats = []
-        if make_avg:
+        if reduce in ['avg','avg_max']:
             avg = tf.math.reduce_mean(
                 input_tensor=   feats,
                 axis=           -2)
             if verb>0: print(f' > avg: {avg}')
             sum_feats.append(avg)
-        if make_max:
+        if reduce in ['max','avg_max']:
             max = tf.math.reduce_max(
                 input_tensor=   feats,
                 axis=           -2)

@@ -12,7 +12,9 @@ if __name__ == '__main__':
         #('use_one_hidden',      10),
         #('use_hidden_stack',    10),
         #('use_drt',             10),
-        ('use_more',            10),
+        #('use_more',            10),
+        #('seq_reduced',         10),
+        ('seq_tns',              5),
     ]
 
     for preset_name, dm in presets_dm:

@@ -5,15 +5,49 @@ from model import VecModel, SeqModel
 
 
 presets = {
-    'seq': {
+    'seq_reduced': {
         'fwd_func':     seq,
         'model_type':   SeqModel,
-        #'make_cnn':     True,
-        #'make_tns':     True,
-        #'make_tat':     True,
-        #'make_avg':     False,
-        #'make_max':     False,
+        'reduce':       'avg_max',
+        'iLR':          1.5e-2,
+        'do_clip':      True,
+        'psdd': {
+            'batch_size':   (16,32,64,128,256),
+            'reduce':       ('avg','max','avg_max'),
+            'iLR':          [1e-7, 1e-1],
+            'do_clip':      (True, False)}}, # 0.6884(100) ... 0.7294(500) 0.7259(200) 0.6539(50)
+
+    'seq_cnn': {
+        'fwd_func':     seq,
+        'model_type':   SeqModel,
+        'make_cnn':     True,
+        'reduce':       'avg_max',
     },
+
+    'seq_tns': {
+        'fwd_func':         seq,
+        'model_type':       SeqModel,
+        'make_tns':         True,
+        'batch_size':       128,    # 128-64
+        'tns_shared_lays':  False,
+        'tns_n_blocks':     4,      # 2-4
+        'tns_n_heads':      5,      # all
+        'tns_dense_mul':    4,      # 4-5
+        'tns_dropout':      0.81,   # >0.5
+        'tns_dropout_att':  0.02,   # 0
+        'iLR':              8.8e-5, # e-4 - e-5
+        'do_clip':          False,
+        'reduce':           'avg_max',
+        'psdd': {
+            'batch_size':       (16,32,64,128,256),
+            'tns_shared_lays':  (True, False),
+            'tns_n_blocks':     [1, 6],
+            'tns_n_heads':      (1, 2, 5),
+            'tns_dense_mul':    [1, 6],
+            'tns_dropout':      [0.0, 0.99],
+            'tns_dropout_att':  [0.0, 0.99],
+            'iLR':              [1e-7, 1e-1],
+            'do_clip':          (True, False)}}, # 0.7877(seq 100 with about 400 runs)
 
     # ************************************************************************** USE models
     'use_base_U0': { # USE U0 to logits

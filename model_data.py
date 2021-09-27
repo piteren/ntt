@@ -102,7 +102,7 @@ def prep_BPE_data(
             0 if s[1] == 'negative' else 1) for s in tqdm(data[split])]
 
     if verb>1:
-        histogram([len(dt[0])for dt in data_tokenized[SPLITS[0]]])
+        histogram([len(dt[0])for dt in data_tokenized[SPLITS[0]]], name='tokens_len',)
         print(f'STD of bpe vectors: {np.std(bpemb_en.vectors):.2f}')
         for split in SPLITS:
             print(f'labels average {split}: {np.mean([s[1] for s in data_tokenized[split]]):.2f}')
