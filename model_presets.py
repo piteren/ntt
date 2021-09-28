@@ -63,6 +63,22 @@ presets = {
             'iLR':              [1e-6, 1e-4],
             'do_clip':          (True, False)}}, # 0.7877(seq 100 with about 400 runs)
 
+    'seq_tat': {
+        'fwd_func':         seq,
+        'model_type':       SeqModel,
+        'make_tat':         True,
+        'reduce':           None,
+        'psdd': {
+            'batch_size':       (16,32,64,128,256),
+            'tat_shared_lays':  (True, False),
+            'tat_n_blocks':     [1, 6],
+            'tat_n_heads':      (1, 2, 5),
+            'tat_dense_mul':    [2, 6],
+            'tat_dropout':      [0.5, 0.99],
+            'tat_dropout_att':  [0.0, 0.99],
+            'iLR':              [1e-7, 1e-1],
+            'do_clip':          (True, False)}}, #
+
     # ************************************************************************** USE models
     'use_base_U0': { # USE U0 to logits
         'fwd_func':     use,
