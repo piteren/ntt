@@ -25,10 +25,10 @@ presets = {
         'psdd': {
             'batch_size':           (16,32,64,128,256),
             'cnn_shared_lays':      (True, False),
-            'cnn_n_layers':         [1, 12],
-            'cnn_n_filters':        [12, 256],
+            'cnn_n_layers':         [1, 6],
+            'cnn_n_filters':        [12, 128],
             'cnn_lay_drop':         [0.0, 0.99],
-            'cnn_ldrt_scale':       [0, 6],
+            'cnn_ldrt_scale':       [0, 4],
             'cnn_ldrt_res_drop':    [0.0, 0.99],
             'cnn_ldrt_lay_drop':    [0.0, 0.99],
             'iLR':                  [1e-7, 1e-1],
