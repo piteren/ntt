@@ -18,19 +18,23 @@ presets = {
             'do_clip':      (True, False)}}, # 0.6884(100) ... 0.7294(500) 0.7259(200) 0.6539(50)
 
     'seq_cnn': {
-        'fwd_func':     seq,
-        'model_type':   SeqModel,
-        'make_cnn':     True,
-        'reduce':       'avg_max',
+        'fwd_func':         seq,
+        'model_type':       SeqModel,
+        'make_cnn':         True,
+        'batch_size':       128,
+        'cnn_shared_lays':  False,
+        'cnn_n_layers':     3,
+        'cnn_n_filters':    49,
+        'cnn_lay_drop':     0.46,
+        'iLR':              2.1e-3,
+        'do_clip':          True,
+        'reduce':           'avg_max',
         'psdd': {
-            'batch_size':           (16,32,64,128),
+            'batch_size':           (64,128),
             'cnn_shared_lays':      (True, False),
             'cnn_n_layers':         [1, 6],
             'cnn_n_filters':        [12, 96],
             'cnn_lay_drop':         [0.0, 0.99],
-            'cnn_ldrt_scale':       [0, 4],
-            'cnn_ldrt_res_drop':    [0.0, 0.99],
-            'cnn_ldrt_lay_drop':    [0.0, 0.99],
             'iLR':                  [1e-7, 1e-1],
             'do_clip':              (True, False)}}, #
 
