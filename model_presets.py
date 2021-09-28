@@ -23,10 +23,10 @@ presets = {
         'make_cnn':     True,
         'reduce':       'avg_max',
         'psdd': {
-            'batch_size':           (16,32,64,128,256),
+            'batch_size':           (16,32,64,128),
             'cnn_shared_lays':      (True, False),
             'cnn_n_layers':         [1, 6],
-            'cnn_n_filters':        [12, 128],
+            'cnn_n_filters':        [12, 96],
             'cnn_lay_drop':         [0.0, 0.99],
             'cnn_ldrt_scale':       [0, 4],
             'cnn_ldrt_res_drop':    [0.0, 0.99],
