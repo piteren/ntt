@@ -31,7 +31,7 @@ presets = {
             'cnn_ldrt_scale':       [0, 6],
             'cnn_ldrt_res_drop':    [0.0, 0.99],
             'cnn_ldrt_lay_drop':    [0.0, 0.99],
-            'iLR':                  [1e-6, 1e-4],
+            'iLR':                  [1e-7, 1e-1],
             'do_clip':              (True, False)}}, #
 
     'seq_tns': {

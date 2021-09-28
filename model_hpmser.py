@@ -14,7 +14,7 @@ if __name__ == '__main__':
         #('use_drt',             10),
         #('use_more',            10),
         #('seq_reduced',         10),
-        ('seq_cnn',             5),
+        ('seq_cnn',             4),
         #('seq_tns',             5),
     ]
 
