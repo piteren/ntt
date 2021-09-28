@@ -14,7 +14,8 @@ if __name__ == '__main__':
         #('use_drt',             10),
         #('use_more',            10),
         #('seq_reduced',         10),
-        ('seq_tns',              5),
+        ('seq_cnn',             5),
+        #('seq_tns',             5),
     ]
 
     for preset_name, dm in presets_dm:
