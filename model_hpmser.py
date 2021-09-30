@@ -14,9 +14,9 @@ if __name__ == '__main__':
         #('use_drt',             10),
         #('use_more',            10),
         #('seq_reduced',         10),
-        ('seq_cnn',             2),
+        #('seq_cnn',             2),
         #('seq_tns',             5),
-        #('seq_tat',             10),
+        ('seq_tat',             10),
     ]
 
     for preset_name, dm in presets_dm:
@@ -25,8 +25,8 @@ if __name__ == '__main__':
             psdd=           get_preset(preset_name).pop('psdd'),
             func_defaults=  {'preset_name':preset_name},
             name=           f'hpmser_for_{preset_name}',
-            devices=        [0]*dm*2,
-            #devices=        [0,1]*dm,
+            #devices=        [0]*dm*2,
+            devices=        [0,1]*dm,
             #config_upd=     100,#None,
             #n_loops=        2000,
             verb=           1)

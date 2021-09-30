@@ -21,12 +21,11 @@ presets = {
         'fwd_func':         seq,
         'model_type':       SeqModel,
         'make_cnn':         True,
-        #'batch_size':       128,
         'cnn_shared_lays':  False,
-        'cnn_n_layers':     4,
-        'cnn_n_filters':    96,
-        'cnn_lay_drop':     0.53,
-        'iLR':              1.6e-3,
+        'cnn_n_layers':     5,
+        'cnn_n_filters':    152,
+        'cnn_lay_drop':     0.42,
+        'iLR':              8e-5,
         'do_clip':          False,
         'reduce':           'avg_max',
         'psdd': {
@@ -42,14 +41,12 @@ presets = {
         'fwd_func':         seq,
         'model_type':       SeqModel,
         'make_tns':         True,
-        'batch_size':       128,    # 128-64
         'tns_shared_lays':  False,
-        'tns_n_blocks':     4,      # 2-4
-        'tns_n_heads':      5,      # all
-        'tns_dense_mul':    4,      # 4-5
-        'tns_dropout':      0.81,   # >0.5
-        #'tns_dropout_att':  0.02,   # 0
-        'iLR':              8.8e-5, # e-4 - e-5
+        'tns_n_blocks':     6,
+        'tns_n_heads':      5,
+        'tns_dense_mul':    6,
+        'tns_dropout':      0.52,
+        'iLR':              8.3e-5,
         'do_clip':          False,
         'reduce':           'avg_max',
         'psdd': {
@@ -67,6 +64,14 @@ presets = {
         'fwd_func':         seq,
         'model_type':       SeqModel,
         'make_tat':         True,
+        'tat_shared_lays':  True,
+        'tat_n_blocks':     3,
+        'tat_n_heads':      5,
+        'tat_dense_mul':    3,
+        'tat_dropout':      0.75,
+        'tat_dropout_att':  0.27,
+        'iLR':              3.9e-4,
+        'do_clip':          True,
         'reduce':           None,
         'psdd': {
             'batch_size':       (16,32,64,128,256),
