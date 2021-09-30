@@ -35,7 +35,7 @@ presets = {
             'cnn_n_filters':        [128, 256],
             'cnn_lay_drop':         [0.0, 0.99],
             'iLR':                  [1e-7, 1e-1],
-            'do_clip':              (True, False)}}, #
+            'do_clip':              (True, False)}}, # 0.8054
 
     'seq_tns': {
         'fwd_func':         seq,
@@ -58,7 +58,7 @@ presets = {
             'tns_dropout':      [0.0, 0.99],
             'tns_dropout_att':  [0.0, 0.2],
             'iLR':              [1e-7, 1e-1],
-            'do_clip':          (True, False)}}, # 0.7877(seq 100 with about 400 runs)
+            'do_clip':          (True, False)}}, # 0.7869
 
     'seq_tat': {
         'fwd_func':         seq,
@@ -82,7 +82,7 @@ presets = {
             'tat_dropout':      [0.0, 0.99],
             'tat_dropout_att':  [0.0, 0.99],
             'iLR':              [1e-7, 1e-1],
-            'do_clip':          (True, False)}}, #
+            'do_clip':          (True, False)}}, # 0.7796
 
     # ************************************************************************** USE models
     'use_base_U0': { # USE U0 to logits
