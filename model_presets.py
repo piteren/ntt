@@ -30,7 +30,7 @@ presets = {
         'reduce':           'avg_max',
         'psdd': {
             'batch_size':           (64,128),
-            'cnn_shared_lays':      (True, False),
+            #'cnn_shared_lays':      (True, False),
             'cnn_n_layers':         [2, 7],
             'cnn_n_filters':        [128, 256],
             'cnn_lay_drop':         [0.0, 0.99],
@@ -50,14 +50,13 @@ presets = {
         'do_clip':          False,
         'reduce':           'avg_max',
         'psdd': {
-            'batch_size':       (64,128),
             'tns_shared_lays':  (True, False),
             'tns_n_blocks':     [2, 10],
             'tns_n_heads':      (1, 2, 5, 10),
             'tns_dense_mul':    [2, 10],
-            'tns_dropout':      [0.0, 0.99],
+            'tns_dropout':      [0.3, 0.8],
             'tns_dropout_att':  [0.0, 0.2],
-            'iLR':              [1e-7, 1e-1],
+            'iLR':              [1e-7, 1e-3],
             'do_clip':          (True, False)}}, # 0.7869
 
     'seq_tat': {
@@ -111,7 +110,6 @@ presets = {
         'fwd_func':     use,
         'model_type':   VecModel,
         'use_model':    'U1',
-        'make_hidden':  True,
         'hid_layers':   1,
         'hid_width':    561,
         'hid_dropout':  0,
@@ -127,7 +125,6 @@ presets = {
         'model_type':   VecModel,
         'use_model':    'U1',
         'batch_size':   256,
-        'make_hidden':  True,
         'hid_layers':   1,
         'hid_width':    630,
         'hid_dropout':  0.917,
@@ -166,7 +163,7 @@ presets = {
             'iLR':              [1e-7, 1e-1],
             'do_clip':          (True, False)}}, # 0.8317
 
-    'use_more': { # experiments for DRT replacement
+    'use_more': { # experiments for DRT replacement with something better
         'fwd_func':         use_more,
         'model_type':       VecModel,
         'use_model':        'U1',
