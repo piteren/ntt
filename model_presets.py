@@ -31,10 +31,10 @@ presets = {
         'psdd': {
             'batch_size':           (64,128),
             'cnn_shared_lays':      (True, False),
-            'cnn_n_layers':         [2, 6],
-            'cnn_n_filters':        [72, 156],
-            'cnn_lay_drop':         [0.3, 0.9],
-            'iLR':                  [1e-5, 1e-2],
+            'cnn_n_layers':         [2, 7],
+            'cnn_n_filters':        [72, 256],
+            'cnn_lay_drop':         [0.0, 0.99],
+            'iLR':                  [1e-7, 1e-1],
             'do_clip':              (True, False)}}, #
 
     'seq_tns': {
@@ -50,14 +50,14 @@ presets = {
         'do_clip':          False,
         'reduce':           'avg_max',
         'psdd': {
-            'batch_size':       (64,128,256),#(16,32,64,128,256),
+            'batch_size':       (64,128),
             'tns_shared_lays':  (True, False),
-            'tns_n_blocks':     [2, 6],
-            'tns_n_heads':      (1, 2, 5),
-            'tns_dense_mul':    [2, 6],
-            'tns_dropout':      [0.5, 0.99],
-            #'tns_dropout_att':  [0.0, 0.99],
-            'iLR':              [1e-6, 1e-4],
+            'tns_n_blocks':     [2, 10],
+            'tns_n_heads':      (1, 2, 5, 10),
+            'tns_dense_mul':    [2, 10],
+            'tns_dropout':      [0.0, 0.99],
+            'tns_dropout_att':  [0.0, 0.2],
+            'iLR':              [1e-7, 1e-1],
             'do_clip':          (True, False)}}, # 0.7877(seq 100 with about 400 runs)
 
     'seq_tat': {
@@ -74,12 +74,12 @@ presets = {
         'do_clip':          True,
         'reduce':           None,
         'psdd': {
-            'batch_size':       (16,32,64,128,256),
+            'batch_size':       (16,32,64,128),
             'tat_shared_lays':  (True, False),
-            'tat_n_blocks':     [1, 6],
-            'tat_n_heads':      (1, 2, 5),
+            'tat_n_blocks':     [1, 7],
+            'tat_n_heads':      (1, 2, 5, 10),
             'tat_dense_mul':    [2, 6],
-            'tat_dropout':      [0.5, 0.99],
+            'tat_dropout':      [0.0, 0.99],
             'tat_dropout_att':  [0.0, 0.99],
             'iLR':              [1e-7, 1e-1],
             'do_clip':          (True, False)}}, #
