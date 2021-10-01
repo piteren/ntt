@@ -10,14 +10,16 @@ from read_stanford_imdb import read_stanford_imdb, SAMPLE, SPLITS, report_about_
 from defaults import EMB_SHAPE, MAX_SEQ_LEN, CACHE_FD
 
 from ptools.lipytools.little_methods import prep_folder, w_pickle
-from ptools.lipytools.plots import histogram
+# from ptools.lipytools.plots import histogram - crashes TF to not execute eagerly (something from imports of that file)
 
 
 NN_DATA = Dict[str,Dict[str,np.array]]
 
 USE_MODELS = {
     'U0':   'https://tfhub.dev/google/universal-sentence-encoder-multilingual/3',
-    'U1':   'https://tfhub.dev/google/universal-sentence-encoder-multilingual-large/3'}
+    'U1':   'https://tfhub.dev/google/universal-sentence-encoder-multilingual-large/3',
+    'U2':   'https://tfhub.dev/google/universal-sentence-encoder-large/5',
+}
 
 
 # prepares USE embedded data
@@ -32,6 +34,7 @@ def prep_USE_data(
     if pack_size == 'auto':
         if use_model == 'U0': pack_size = 100
         if use_model == 'U1': pack_size = 10
+        if use_model == 'U2': pack_size = 10
 
     embed = hub.load(USE_MODELS[use_model])
 
@@ -51,7 +54,8 @@ def prep_USE_data(
 
         npa = []
         for p in tqdm(sp):
-            npa.append(np.asarray(embed(p)))
+            emb = embed(p)
+            npa.append(np.asarray(emb))
         npa_splits[split] = np.concatenate(npa, axis=0)
 
     return {s: {
@@ -102,7 +106,7 @@ def prep_BPE_data(
             0 if s[1] == 'negative' else 1) for s in tqdm(data[split])]
 
     if verb>1:
-        histogram([len(dt[0])for dt in data_tokenized[SPLITS[0]]], name='tokens_len',)
+        #histogram([len(dt[0])for dt in data_tokenized[SPLITS[0]]], name='tokens_len',)
         print(f'STD of bpe vectors: {np.std(bpemb_en.vectors):.2f}')
         for split in SPLITS:
             print(f'labels average {split}: {np.mean([s[1] for s in data_tokenized[split]]):.2f}')
@@ -136,5 +140,5 @@ def build_BPE_cache():
 
 
 if __name__ == '__main__':
-    #build_USE_cache()
-    build_BPE_cache()
+    build_USE_cache()
+    #build_BPE_cache()

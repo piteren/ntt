@@ -2,8 +2,9 @@ from defaults import EMB_SHAPE, BPE_STD, MAX_SEQ_LEN
 
 from ptools.neuralmess.get_tf import tf
 from ptools.neuralmess.base_elements import my_initializer
-from ptools.neuralmess.layers import lay_dense
+from ptools.neuralmess.layers import lay_dense, tf_drop
 from ptools.neuralmess.encoders import enc_CNN, enc_TNS, enc_DRT
+from ptools.neuralmess.encoders_EX import lay_DRT_EX
 
 
 # sequence graph
@@ -11,12 +12,18 @@ def seq(name: str=              'seq',
         emb_shape=              EMB_SHAPE,
         trainable_emb: bool=    False,
 
+        time_drop=              0.0,
+        feat_drop=              0.0,
+
         make_cnn=               False,
         cnn_shared_lays=        False,
         cnn_n_layers :int=      12,
         cnn_kernel :int=        3,
         cnn_n_filters :int=     128,
         cnn_lay_drop=           0.0,
+        cnn_ldrt_scale=         0,
+        cnn_ldrt_res_drop=      0.0,
+        cnn_ldrt_lay_drop=      0.0,
 
         make_tns=               False,
         tns_shared_lays=        False,
@@ -72,6 +79,14 @@ def seq(name: str=              'seq',
         if verb>0: print(f' > feats_lookup: {feats_lookup}')
         feats = feats_lookup
 
+        if time_drop or feat_drop:
+            feats = tf_drop(
+                input=      feats,
+                time_drop=  time_drop,
+                feat_drop=  feat_drop,
+                train_flag= train_flag_PH,
+                seed=       seed)
+
         if make_cnn:
             enc_out = enc_CNN(
                 input=          feats,
@@ -80,7 +95,9 @@ def seq(name: str=              'seq',
                 kernel=         cnn_kernel,
                 n_filters=      cnn_n_filters,
                 lay_drop=       cnn_lay_drop,
-                ldrt_scale=     0, # 0 after quick hpmser
+                ldrt_scale=     cnn_ldrt_scale,
+                ldrt_res_drop=  cnn_ldrt_res_drop,
+                ldrt_lay_drop=  cnn_ldrt_lay_drop,
                 training_flag=  train_flag_PH,
                 seed=           seed,
                 n_hist=         0)
@@ -162,14 +179,12 @@ def seq(name: str=              'seq',
 
 def use(name: str=          'use',
             # hidden
-        make_hidden=        False,
-        hid_layers=         6,
+        hid_layers=         0,
         hid_width=          100,
         hid_dropout=        0.2,
             # drt
-        make_drt=           False,
-        drt_shared=         False,
         drt_layers=         6,
+        drt_shared=         False,
         drt_lay_width=      32,
         drt_dns_scale=      6,
         drt_in_dropout=     0.2,
@@ -195,24 +210,23 @@ def use(name: str=          'use',
 
     with tf.variable_scope(name):
 
-        if make_hidden:
-            for lay in range(hid_layers):
+        for lay in range(hid_layers):
 
-                feats = lay_dense(
-                    input=          feats,
-                    units=          hid_width,
-                    activation=     tf.nn.relu,
-                    seed=           seed)
-                if verb>0: print(f' > {lay} hidden: {feats}')
+            feats = lay_dense(
+                input=          feats,
+                units=          hid_width,
+                activation=     tf.nn.relu,
+                seed=           seed)
+            if verb>0: print(f' > {lay} hidden: {feats}')
 
-                if hid_dropout:
-                    feats = tf.layers.dropout(
-                        inputs=     feats,
-                        rate=       hid_dropout,
-                        training=   train_flag_PH,
-                        seed=       seed)
+            if hid_dropout:
+                feats = tf.layers.dropout(
+                    inputs=     feats,
+                    rate=       hid_dropout,
+                    training=   train_flag_PH,
+                    seed=       seed)
 
-        if make_drt:
+        if drt_layers:
             drt_out = enc_DRT(
                 input=          feats,
                 shared_lays=    drt_shared,
@@ -252,12 +266,13 @@ def use_more(
         name: str=      'use_more',
         do_projection=  True,
         proj_width=     256,
+        proj_drop=      0.0,
         n_layers=       2,
         shared_lays=    False,
-        do_norm=        True,
-        play_dropout=   0.2,
-        alay_dropout=   0.2,
-        res_dropout=    0.2,
+        do_scaled_dns=  True,
+        dns_scale=      4,
+        lay_dropout=    0.0,
+        res_dropout=    0.0,
         seed=           123,
         verb=           1):
 
@@ -276,55 +291,39 @@ def use_more(
     if verb>0: print(f' > labels_PH: {labels_PH}')
     feats = embeddings_PH
 
+    output = feats
     with tf.variable_scope(name):
 
         if do_projection:
-            feats = lay_dense(
-                input=          feats,
+            output = tf.keras.layers.LayerNormalization(axis=-1)(output)
+            output = lay_dense(
+                input=          output,
                 units=          proj_width,
                 seed=           seed)
+            if proj_drop:
+                output = tf.layers.dropout(
+                    inputs=     output,
+                    rate=       proj_drop,
+                    training=   train_flag_PH,
+                    seed=       seed)
 
         for lay in range(n_layers):
-
             lay_name = f'lay_shared' if shared_lays else f'lay_{lay}'
             with tf.variable_scope(name_or_scope=lay_name, reuse=tf.AUTO_REUSE):
-
-                lay_feats = feats
-                if do_norm:
-                    lay_feats = tf.keras.layers.LayerNormalization(axis=-1)(lay_feats)
-
-                if play_dropout:
-                    lay_feats = tf.layers.dropout(
-                        inputs=     lay_feats,
-                        rate=       play_dropout,
-                        training=   train_flag_PH,
-                        seed=       seed)
-
-                lay_feats = lay_dense(
-                    input=          lay_feats,
-                    units=          proj_width if do_projection else 512,
-                    activation=     tf.nn.relu,
+                drt_out = lay_DRT_EX(
+                    input=          output,
+                    name=           lay_name,
+                    hist_name=      'drt_EX',
+                    do_scaled_dns=  do_scaled_dns,
+                    dns_scale=      dns_scale,
+                    lay_dropout=    lay_dropout,
+                    res_dropout=    res_dropout,
+                    training_flag=  train_flag_PH,
                     seed=           seed)
-                if verb>0: print(f' > {lay} hidden: {feats}')
-
-                if alay_dropout:
-                    lay_feats = tf.layers.dropout(
-                        inputs=     lay_feats,
-                        rate=       alay_dropout,
-                        training=   train_flag_PH,
-                        seed=       seed)
-
-                if res_dropout:
-                    feats = tf.layers.dropout(
-                        inputs=     feats,
-                        rate=       res_dropout,
-                        training=   train_flag_PH,
-                        seed=       seed)
-
-                feats += lay_feats
+                output = drt_out['output']
 
         logits = lay_dense(
-            input=  feats,
+            input=  output,
             units=  2,
             seed=   seed)
         if verb>0: print(f' > logits: {logits}')

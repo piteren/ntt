@@ -83,7 +83,7 @@ presets = {
             'iLR':              [1e-7, 1e-1],
             'do_clip':          (True, False)}}, # 0.7796
 
-    # ************************************************************************** USE models
+    # ************************************************************************** USE based models
     'use_base_U0': { # USE U0 to logits
         'fwd_func':     use,
         'model_type':   VecModel,
@@ -105,6 +105,18 @@ presets = {
             'batch_size':   (16,32,64,128,256),
             'iLR':          [1e-7, 1e-1],
             'do_clip':      (True, False)}}, # 0.8406
+
+    'use_base_U2': { # USE U2 to logits
+        'fwd_func':     use,
+        'model_type':   VecModel,
+        'use_model':    'U2',
+        'batch_size':   256,
+        'iLR':          1.8e-5,
+        'do_clip':      False,
+        'psdd': {
+            'batch_size':   (16,32,64,128,256),
+            'iLR':          [1e-7, 1e-1],
+            'do_clip':      (True, False)}}, # ???
 
     'use_one_hidden': { # USE with one hidden layer (search for width, no drop)
         'fwd_func':     use,
@@ -167,24 +179,25 @@ presets = {
         'fwd_func':         use_more,
         'model_type':       VecModel,
         'use_model':        'U1',
+        'batch_size':       256,
         'do_projection':    False,
-        'n_layers':         1,
-        'shared_lays':      False,
-        'do_norm':          False,
-        'play_dropout':     0.655,
-        'alay_dropout':     0.334,
-        'res_dropout':      0.01,
-        'iLR':              1.7e-3,
-        'do_clip':          False,
+        'n_layers':         7,
+        'shared_lays':      True,
+        'do_scaled_dns':    False,
+        'lay_dropout':      0.88,
+        'res_dropout':      0.11,
+        'iLR':              3e-4,
+        'do_clip':          True,
         'psdd': {
             'batch_size':       (16,32,64,128,256),
             'do_projection':    (True, False),
             'proj_width':       [12, 1024],
+            'proj_drop':        [0.0, 0.99],
             'n_layers':         [1, 12],
             'shared_lays':      (True, False),
-            'do_norm':          (True, False),
-            'play_dropout':     [0.0, 0.99],
-            'alay_dropout':     [0.0, 0.99],
+            'do_scaled_dns':    (True, False),
+            'dns_scale':        [1, 6],
+            'lay_dropout':      [0.0, 0.99],
             'res_dropout':      [0.0, 0.99],
             'iLR':              [1e-7, 1e-1],
             'do_clip':          (True, False)}}, # ???
