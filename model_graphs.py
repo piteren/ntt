@@ -50,7 +50,7 @@ def seq(name: str=              'seq',
     tokens_PH = tf.compat.v1.placeholder( # tokens placeholder (seq input - IDs)
         name=   'tokens_PH',
         dtype=  tf.int32,
-        shape=  (None,None)) # (batch_size,seq_len)
+        shape=  (None,512)) # (batch_size,seq_len)
     train_flag_PH = tf.compat.v1.placeholder(
         name=   'train_flag_PH',
         dtype=  tf.bool)
@@ -196,7 +196,7 @@ def use(name: str=          'use',
     embeddings_PH = tf.placeholder( # use embeddings placeholder
         name=   'embeddings_PH',
         dtype=  tf.float32,
-        shape=  (None,None)) # (batch_size,512)
+        shape=  (None,512)) # (batch_size,512)
     if verb>0: print(f' > embeddings_PH: {embeddings_PH}')
     train_flag_PH = tf.placeholder(
         name=   'train_flag_PH',
