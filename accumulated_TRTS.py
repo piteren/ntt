@@ -48,8 +48,8 @@ def accumulated_TRTS(
 if __name__ == '__main__':
 
     accumulated_TRTS(
-        devices=[0,1]*5,
-        #devices=[0]*5,
+        #devices=[0,1]*5,
+        devices=[0]*5*2,
         presets= [
             #'use_base_U0',
             #'use_base_U1',
