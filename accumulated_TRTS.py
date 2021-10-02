@@ -51,8 +51,8 @@ if __name__ == '__main__':
         devices=[0,1]*5,
         #devices=[0]*5,
         presets= [
-            'use_base_U0',
-            'use_base_U1',
+            #'use_base_U0',
+            #'use_base_U1',
             #'use_base_U2',
             #'use_one_hidden',
             #'use_hidden_stack',
@@ -60,6 +60,6 @@ if __name__ == '__main__':
             #'use_drt',
             #'seq_reduced',
             #'seq_cnn',
-            #'seq_tns',
+            'seq_tns',
             #'seq_tat',
     ])

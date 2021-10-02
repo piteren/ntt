@@ -50,7 +50,7 @@ def seq(name: str=              'seq',
     tokens_PH = tf.compat.v1.placeholder( # tokens placeholder (seq input - IDs)
         name=   'tokens_PH',
         dtype=  tf.int32,
-        shape=  (None,512)) # (batch_size,seq_len)
+        shape=  (None,None)) # (batch_size,seq_len)
     train_flag_PH = tf.compat.v1.placeholder(
         name=   'train_flag_PH',
         dtype=  tf.bool)
@@ -183,7 +183,7 @@ def use(name: str=          'use',
         hid_width=          100,
         hid_dropout=        0.2,
             # drt
-        drt_layers=         6,
+        drt_layers=         0,
         drt_shared=         False,
         drt_lay_width=      32,
         drt_dns_scale=      6,

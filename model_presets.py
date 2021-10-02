@@ -112,13 +112,12 @@ presets = {
         'fwd_func':     use,
         'model_type':   VecModel,
         'use_model':    'U2',
-        'batch_size':   256,
-        'iLR':          1.8e-5,
+        'iLR':          4.3e-3,
         'do_clip':      False,
         'psdd': {
             'batch_size':   (16,32,64,128,256),
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False)}}, # ???
+            'do_clip':      (True, False)}}, # 0.8396
 
     'use_one_hidden': { # USE with one hidden layer (search for width, no drop)
         'fwd_func':     use,
