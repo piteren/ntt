@@ -279,7 +279,7 @@ def use_more(
     embeddings_PH = tf.placeholder( # use embeddings placeholder
         name=   'embeddings_PH',
         dtype=  tf.float32,
-        shape=  (None,None)) # (batch_size,512)
+        shape=  (None,512)) # (batch_size,512)
     if verb>0: print(f' > embeddings_PH: {embeddings_PH}')
     train_flag_PH = tf.placeholder(
         name=   'train_flag_PH',
