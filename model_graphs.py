@@ -196,7 +196,7 @@ def use(name: str=          'use',
     embeddings_PH = tf.placeholder( # use embeddings placeholder
         name=   'embeddings_PH',
         dtype=  tf.float32,
-        shape=  (None,512)) # (batch_size,512)
+        shape=  (None,None)) # (batch_size,512)
     if verb>0: print(f' > embeddings_PH: {embeddings_PH}')
     train_flag_PH = tf.placeholder(
         name=   'train_flag_PH',
@@ -264,22 +264,22 @@ def use(name: str=          'use',
 
 def use_more(
         name: str=      'use_more',
-        do_projection=  True,
+        do_projection=  False,
         proj_width=     256,
         proj_drop=      0.0,
-        n_layers=       2,
+        n_layers=       1,
         shared_lays=    False,
-        do_scaled_dns=  True,
+        do_scaled_dns=  False,
         dns_scale=      4,
-        lay_dropout=    0.0,
-        res_dropout=    0.0,
+        lay_dropout=    0.84,
+        res_dropout=    0.02,
         seed=           123,
         verb=           1):
 
     embeddings_PH = tf.placeholder( # use embeddings placeholder
         name=   'embeddings_PH',
         dtype=  tf.float32,
-        shape=  (None,512)) # (batch_size,512)
+        shape=  (None,None)) # (batch_size,512)
     if verb>0: print(f' > embeddings_PH: {embeddings_PH}')
     train_flag_PH = tf.placeholder(
         name=   'train_flag_PH',

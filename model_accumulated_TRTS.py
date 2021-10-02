@@ -56,10 +56,10 @@ if __name__ == '__main__':
             #'use_base_U2',
             #'use_one_hidden',
             #'use_hidden_stack',
-            #'use_more',
+            'use_more',
             #'use_drt',
             #'seq_reduced',
-            'seq_cnn',
+            #'seq_cnn',
             #'seq_tns',
             #'seq_tat',
     ])
