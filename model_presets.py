@@ -201,7 +201,7 @@ presets = {
             'lay_dropout':      [0.0, 0.99],
             'res_dropout':      [0.0, 0.99],
             'iLR':              [1e-7, 1e-1],
-            'do_clip':          (True, False)}}, # ???
+            'do_clip':          (True, False)}}, # 0.8455
 }
 
 def get_preset(preset_name: str) -> dict:
