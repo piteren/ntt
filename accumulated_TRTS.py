@@ -48,15 +48,15 @@ def accumulated_TRTS(
 if __name__ == '__main__':
 
     accumulated_TRTS(
-        #devices=[0,1]*5,
-        devices=[0]*5,
+        devices=[0,1]*5,
+        #devices=[0]*5,
         presets= [
             'use_base_U0',
             'use_base_U1',
-            'use_base_U2',
-            'use_one_hidden',
-            'use_hidden_stack',
-            'use_more',
+            #'use_base_U2',
+            #'use_one_hidden',
+            #'use_hidden_stack',
+            #'use_more',
             #'use_drt',
             #'seq_reduced',
             #'seq_cnn',
