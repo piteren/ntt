@@ -49,7 +49,7 @@ if __name__ == '__main__':
 
     accumulated_TRTS(
         #devices=[0,1]*5,
-        devices=[0]*5,
+        devices=[1]*5,
         presets= [
             #'use_base_U0',
             #'use_base_U1',
@@ -60,6 +60,7 @@ if __name__ == '__main__':
             #'use_drt',
             #'seq_reduced',
             #'seq_cnn',
-            'seq_tns',
+            'seq_cnn_tf',
+            #'seq_tns',
             #'seq_tat',
     ])
