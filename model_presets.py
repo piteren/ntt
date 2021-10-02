@@ -107,6 +107,30 @@ presets = {
             'iLR':              [1e-7, 1e-3],
             'do_clip':          (True, False)}}, # 0.7869
 
+    'seq_tns_tf': { # TNS with added TF dropout
+        'fwd_func':         seq,
+        'model_type':       SeqModel,
+        'make_tns':         True,
+        'tns_shared_lays':  False,
+        'tns_n_blocks':     6,
+        'tns_n_heads':      5,
+        'tns_dense_mul':    6,
+        'tns_dropout':      0.52,
+        'iLR':              8.3e-5,
+        'do_clip':          False,
+        'reduce':           'avg_max',
+        'psdd': {
+            'time_drop':        [0.0, 0.99],
+            'feat_drop':        [0.0, 0.99],
+            'tns_shared_lays':  (True, False),
+            'tns_n_blocks':     [2, 10],
+            'tns_n_heads':      (1, 2, 5, 10),
+            'tns_dense_mul':    [2, 10],
+            'tns_dropout':      [0.3, 0.8],
+            'tns_dropout_att':  [0.0, 0.2],
+            'iLR':              [1e-7, 1e-3],
+            'do_clip':          (True, False)}}, # ???
+
     'seq_tat': {
         'fwd_func':         seq,
         'model_type':       SeqModel,
