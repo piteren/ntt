@@ -12,6 +12,7 @@ def seq(name: str=              'seq',
         emb_shape=              EMB_SHAPE,
         trainable_emb: bool=    False,
 
+        input_drop=             0.0,
         time_drop=              0.0,
         feat_drop=              0.0,
 
@@ -78,6 +79,13 @@ def seq(name: str=              'seq',
             ids=            tokens_PH)
         if verb>0: print(f' > feats_lookup: {feats_lookup}')
         feats = feats_lookup
+
+        if input_drop:
+            feats = tf.layers.dropout(
+                inputs=     feats,
+                rate=       input_drop,
+                training=   train_flag_PH,
+                seed=       seed)
 
         if time_drop or feat_drop:
             feats = tf_drop(

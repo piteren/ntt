@@ -25,11 +25,11 @@ if __name__ == '__main__':
 
     #preset_name = 'use_base_U0'
     #preset_name = 'use_base_U1'
-    preset_name = 'use_base_U2'
+    #preset_name = 'use_base_U2'
     #preset_name = 'use_one_hidden'
     #preset_name = 'use_hidden_stack'
     #preset_name = 'use_drt'
-    #preset_name = 'seq_tns'
+    preset_name = 'seq_tns'
 
     result = train_model(
         preset_name=    preset_name,
