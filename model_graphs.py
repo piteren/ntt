@@ -186,18 +186,12 @@ def seq(name: str=              'seq',
 
 
 def use(name: str=          'use',
+
+        batch_drop=         0.0,
             # hidden
         hid_layers=         0,
         hid_width=          100,
         hid_dropout=        0.2,
-            # drt
-        drt_layers=         0,
-        drt_shared=         False,
-        drt_lay_width=      32,
-        drt_dns_scale=      6,
-        drt_in_dropout=     0.2,
-        drt_res_dropout=    0.2,
-        drt_lay_dropout=    0.2,
         seed=               123,
         verb=               1):
 
@@ -218,6 +212,14 @@ def use(name: str=          'use',
 
     with tf.variable_scope(name):
 
+        if batch_drop:
+            feats = tf_drop(
+                input=      feats,
+                time_drop=  0.0,
+                feat_drop=  batch_drop,
+                train_flag= train_flag_PH,
+                seed=       seed)
+
         for lay in range(hid_layers):
 
             feats = lay_dense(
@@ -234,104 +236,8 @@ def use(name: str=          'use',
                     training=   train_flag_PH,
                     seed=       seed)
 
-        if drt_layers:
-            drt_out = enc_DRT(
-                input=          feats,
-                shared_lays=    drt_shared,
-                n_layers=       drt_layers,
-                lay_width=      drt_lay_width,
-                dns_scale=      drt_dns_scale,
-                in_dropout=     drt_in_dropout,
-                res_dropout=    drt_res_dropout,
-                lay_dropout=    drt_lay_dropout,
-                training_flag=  train_flag_PH,
-                seed=           seed)
-            if verb>0: print(f' > enc_drt_out: {drt_out}')
-            feats = drt_out['output']
-
         logits = lay_dense(
             input=  feats,
-            units=  2,
-            seed=   seed)
-        if verb>0: print(f' > logits: {logits}')
-
-        loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=logits, labels=labels_PH)
-        loss = tf.reduce_mean(loss)
-
-        preds = tf.cast(tf.argmax(logits, axis=-1), dtype=tf.int32)
-        acc = tf.reduce_mean(tf.cast(tf.equal(labels_PH,preds), dtype=tf.float32))
-
-    return {
-        'embeddings_PH':    embeddings_PH,
-        'train_flag_PH':    train_flag_PH,
-        'labels_PH':        labels_PH,
-        'logits':           logits,
-        'loss':             loss,
-        'acc':              acc}
-
-
-def use_more(
-        name: str=      'use_more',
-        do_projection=  False,
-        proj_width=     256,
-        proj_drop=      0.0,
-        n_layers=       1,
-        shared_lays=    False,
-        do_scaled_dns=  False,
-        dns_scale=      4,
-        lay_dropout=    0.84,
-        res_dropout=    0.02,
-        seed=           123,
-        verb=           1):
-
-    embeddings_PH = tf.placeholder( # use embeddings placeholder
-        name=   'embeddings_PH',
-        dtype=  tf.float32,
-        shape=  (None,512)) # (batch_size,512)
-    if verb>0: print(f' > embeddings_PH: {embeddings_PH}')
-    train_flag_PH = tf.placeholder(
-        name=   'train_flag_PH',
-        dtype=  tf.bool)
-    labels_PH = tf.placeholder(
-        name=   'labels_PH',
-        dtype=  tf.int32,
-        shape=  None)
-    if verb>0: print(f' > labels_PH: {labels_PH}')
-    feats = embeddings_PH
-
-    output = feats
-    with tf.variable_scope(name):
-
-        if do_projection:
-            output = tf.keras.layers.LayerNormalization(axis=-1)(output)
-            output = lay_dense(
-                input=          output,
-                units=          proj_width,
-                seed=           seed)
-            if proj_drop:
-                output = tf.layers.dropout(
-                    inputs=     output,
-                    rate=       proj_drop,
-                    training=   train_flag_PH,
-                    seed=       seed)
-
-        for lay in range(n_layers):
-            lay_name = f'lay_shared' if shared_lays else f'lay_{lay}'
-            with tf.variable_scope(name_or_scope=lay_name, reuse=tf.AUTO_REUSE):
-                drt_out = lay_DRT_EX(
-                    input=          output,
-                    name=           lay_name,
-                    hist_name=      'drt_EX',
-                    do_scaled_dns=  do_scaled_dns,
-                    dns_scale=      dns_scale,
-                    lay_dropout=    lay_dropout,
-                    res_dropout=    res_dropout,
-                    training_flag=  train_flag_PH,
-                    seed=           seed)
-                output = drt_out['output']
-
-        logits = lay_dense(
-            input=  output,
             units=  2,
             seed=   seed)
         if verb>0: print(f' > logits: {logits}')
