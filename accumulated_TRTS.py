@@ -60,7 +60,8 @@ if __name__ == '__main__':
             #'use_drt',
             #'seq_reduced',
             #'seq_cnn',
-            'seq_cnn_tf',
+            #'seq_cnn_tf',
+            'seq_cnn_ind',
             #'seq_tns',
             #'seq_tat',
     ])

@@ -186,8 +186,6 @@ def seq(name: str=              'seq',
 
 
 def use(name: str=          'use',
-
-        batch_drop=         0.0,
             # hidden
         hid_layers=         0,
         hid_width=          100,
@@ -211,14 +209,6 @@ def use(name: str=          'use',
     feats = embeddings_PH
 
     with tf.variable_scope(name):
-
-        if batch_drop:
-            feats = tf_drop(
-                input=      feats,
-                time_drop=  0.0,
-                feat_drop=  batch_drop,
-                train_flag= train_flag_PH,
-                seed=       seed)
 
         for lay in range(hid_layers):
 
