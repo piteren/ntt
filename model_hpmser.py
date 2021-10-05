@@ -12,7 +12,7 @@ if __name__ == '__main__':
         #('use_base_U2',         10),
         #('use_one_hidden',      10),
         #('use_hidden_stack',    10),
-        ('use_hidden_stack_bd', 10),
+        #('use_hidden_stack_bd', 10),
         #('use_drt',             10),
         #('use_more',            6),
         #('seq_reduced',         10),
@@ -21,6 +21,7 @@ if __name__ == '__main__':
         #('seq_tns',             4),
         #('seq_tns_tf',          4),
         #('seq_tat',             8),
+        ('seq_tat_tf',          8),
     ]
 
     for preset_name, dm in presets_dm:
@@ -29,8 +30,8 @@ if __name__ == '__main__':
             psdd=           get_preset(preset_name).pop('psdd'),
             func_defaults=  {'preset_name':preset_name},
             name=           f'hpmser_for_{preset_name}',
-            #devices=        [0]*dm*2,
-            devices=        [0,1]*dm,
+            devices=        [0]*dm*2,
+            #devices=        [0,1]*dm,
             #config_upd=     100,#None,
             #n_loops=        2000,
             verb=           1)
