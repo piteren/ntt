@@ -10,7 +10,7 @@ python-Levenshtein==0.12.2
 regex==2021.9.30
 rouge==1.0.1
 scipy==1.7.1
-tensorflow==2.6.0
-tensorflow_hub==0.12.0
-tensorflow_text==2.6.0
+tensorflow==2.4.1
+tensorflow_hub
+tensorflow_text
 tqdm==4.62.3
