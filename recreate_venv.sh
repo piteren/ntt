@@ -12,3 +12,11 @@ pip install -r requirements.txt
 echo "Submodule init/update.."
 git submodule init
 git submodule update
+
+echo "Downloading data files.."
+gdown https://drive.google.com/uc?id=1MaDUdkkl9eSSUI3CB4P3xVN0moNr8yBF
+unzip data.zip
+rm data.zip
+gdown https://drive.google.com/uc?id=1Pq2p1ZY527rGXcKJJJdEgB7lvor1tnDW
+unzip _cache.zip
+rm _cache.zip

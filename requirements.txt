@@ -1,4 +1,5 @@
 bpemb==0.3.3
+gdown==4.0.1
 GPUtil==1.4.0
 matplotlib==3.4.3
 nltk==3.6.3
