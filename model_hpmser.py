@@ -17,11 +17,13 @@ if __name__ == '__main__':
         #('use_more',            6),
         #('seq_reduced',         10),
         #('seq_cnn',             2),
+        #('seq_cnn_tf',          2),
         #('seq_cnn_ind',         2),
         #('seq_tns',             4),
         #('seq_tns_tf',          4),
         #('seq_tat',             8),
-        ('seq_tat_tf',          8),
+        #('seq_tat_tf',          8),
+        ('seq_tat_ind',         8),
     ]
 
     for preset_name, dm in presets_dm:
