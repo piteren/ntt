@@ -85,6 +85,36 @@ presets = {
             'iLR':                  [1e-7, 1e-1],
             'do_clip':              (True, False)}}, # 0.8091
 
+    'seq_cnn_tf_layDRTEX': { # CNN with added TF dropout and lay_DRT_EX
+        'fwd_func':         seq,
+        'model_type':       SeqModel,
+        'make_cnn':         True,
+        'time_drop':        0.30,
+        'feat_drop':        0.01,
+        'cnn_shared_lays':  False,
+        'cnn_n_layers':     4,
+        'cnn_n_filters':    170,
+        'cnn_lay_drop':     0.29,
+        'do_ldrt':          True,
+        'iLR':              4.6e-4,
+        'do_clip':          True,
+        'reduce':           'avg_max',
+        'psdd': {
+            'batch_size':           (64,128),
+            'time_drop':            [0.0, 0.99],
+            'feat_drop':            [0.0, 0.99],
+            'cnn_shared_lays':      (True, False),
+            'cnn_n_layers':         [2, 7],
+            'cnn_n_filters':        [64, 186],
+            'cnn_lay_drop':         [0.0, 0.99],
+            'ldrt_scaled_dns':      (True, False),
+            'ldrt_scale':           [2, 6],
+            'ldrt_drop':            [0.0, 0.99],
+            'ldrt_res':             (True, False),
+            'ldrt_res_drop':        [0.0, 0.99],
+            'iLR':                  [1e-7, 1e-1],
+            'do_clip':              (True, False)}}, # ???
+
     'seq_tns': {
         'fwd_func':         seq,
         'model_type':       SeqModel,
@@ -125,6 +155,31 @@ presets = {
         'psdd': {
             'time_drop':        [0.0, 0.99],
             'feat_drop':        [0.0, 0.99],
+            'tns_shared_lays':  (True, False),
+            'tns_n_blocks':     [2, 10],
+            'tns_n_heads':      (1, 2, 5, 10),
+            'tns_dense_mul':    [2, 10],
+            'tns_dropout':      [0.3, 0.8],
+            'tns_dropout_att':  [0.0, 0.2],
+            'iLR':              [1e-7, 1e-3],
+            'do_clip':          (True, False)}}, # 0.7953
+
+    'seq_tns_ind': { # TNS with added input dropout
+        'fwd_func':         seq,
+        'model_type':       SeqModel,
+        'make_tns':         True,
+
+        'tns_shared_lays':  True,
+        'tns_n_blocks':     7,
+        'tns_n_heads':      1,
+        'tns_dense_mul':    10,
+        'tns_dropout':      0.34,
+        'tns_dropout_att':  0.19,
+        'iLR':              1.1e-4,
+        'do_clip':          False,
+        'reduce':           'avg_max',
+        'psdd': {
+            'input_drop':       [0.0, 0.99],
             'tns_shared_lays':  (True, False),
             'tns_n_blocks':     [2, 10],
             'tns_n_heads':      (1, 2, 5, 10),
@@ -183,7 +238,7 @@ presets = {
             'tat_dropout':      [0.0, 0.99],
             'tat_dropout_att':  [0.0, 0.99],
             'iLR':              [1e-7, 1e-1],
-            'do_clip':          (True, False)}}, # ???
+            'do_clip':          (True, False)}}, # 0.7958
 
     'seq_tat_ind': {
         'fwd_func':         seq,
@@ -208,7 +263,7 @@ presets = {
             'tat_dropout':      [0.0, 0.99],
             'tat_dropout_att':  [0.0, 0.99],
             'iLR':              [1e-7, 1e-1],
-            'do_clip':          (True, False)}}, # ???
+            'do_clip':          (True, False)}}, # 0.7985
 
     'use_base_U0': { # USE U0 to logits
         'fwd_func':     use,
