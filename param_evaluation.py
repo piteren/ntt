@@ -25,7 +25,8 @@ def evaluate_param(
         log=            False,  # log / lin scale
         type_int=       False,  # False for float else int
         num_samples=    300,
-        devices=        [0,1]*5):
+        devices=        [0,1]*5,
+):
 
     seed = [1/num_samples * x for x in range(num_samples)]
     if log:
@@ -61,7 +62,7 @@ def evaluate_param(
 
 if __name__ == '__main__':
 
-    """
+    #"""
     # iLR
     eval_base = {
         'param':    'iLR',
@@ -76,11 +77,12 @@ if __name__ == '__main__':
         'rng':      [2, 1200],
         'type_int': True,
     }
+    #"""
 
     for preset in [
-        #'use_base_U1',
-        'use_one_hidden',
-        'use_hidden_stack'
+        'use_base_U1',
+        #'use_one_hidden',
+        #'use_hidden_stack'
     ]:
 
         ed = {}
