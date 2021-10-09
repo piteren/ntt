@@ -20,3 +20,8 @@ rm data.zip
 gdown https://drive.google.com/uc?id=1Pq2p1ZY527rGXcKJJJdEgB7lvor1tnDW
 unzip _cache.zip
 rm _cache.zip
+
+# try it:
+#PTOOLS_DIR=${HEREDIR}/ptools
+#cd $(python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
+#echo ${PTOOLS_DIR} > ptools.pth

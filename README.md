@@ -8,9 +8,3 @@ NLP Tools Tests on IMDB
    * download data and cache files
    
 `$ ./recreate_venv.sh ~/.venvs/`
-
-try:
-
-cd $(python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
-
-echo /some/library/path > some-library.pth
