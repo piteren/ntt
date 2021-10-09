@@ -159,13 +159,15 @@ presets = {
         'fwd_func':         seq,
         'model_type':       SeqModel,
         'make_tat':         True,
-        'tat_shared_lays':  True,
-        'tat_n_blocks':     3,
-        'tat_n_heads':      5,
+        'time_drop':        0.3,
+        'feat_drop':        0.09,
+        'tat_shared_lays':  False,
+        'tat_n_blocks':     7,
+        'tat_n_heads':      10,
         'tat_dense_mul':    3,
-        'tat_dropout':      0.75,
-        'tat_dropout_att':  0.27,
-        'iLR':              3.9e-4,
+        'tat_dropout':      0.26,
+        'tat_dropout_att':  0.14,
+        'iLR':              4.9e-4,
         'do_clip':          True,
         'reduce':           None,
         'psdd': {
@@ -204,7 +206,6 @@ presets = {
             'iLR':              [1e-7, 1e-1],
             'do_clip':          (True, False)}}, # ???
 
-    # ************************************************************************** USE based models
     'use_base_U0': { # USE U0 to logits
         'fwd_func':     use,
         'model_type':   VecModel,
