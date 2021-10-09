@@ -229,16 +229,16 @@ presets = {
         'do_clip':          True,
         'reduce':           None,
         'psdd': {
-            'time_drop':        [0.0, 0.99],
-            'feat_drop':        [0.0, 0.99],
+            'time_drop':        [0.2, 0.4],
+            'feat_drop':        [0.05, 0.2],
             'tat_shared_lays':  (True, False),
-            'tat_n_blocks':     [1, 7],
-            'tat_n_heads':      (1, 2, 5, 10),
-            'tat_dense_mul':    [2, 6],
-            'tat_dropout':      [0.0, 0.99],
-            'tat_dropout_att':  [0.0, 0.99],
-            'iLR':              [1e-7, 1e-1],
-            'do_clip':          (True, False)}}, # 0.7958
+            'tat_n_blocks':     [1, 10],
+            'tat_n_heads':      (5, 10),
+            #'tat_dense_mul':    [2, 6],
+            'tat_dropout':      [0.2, 0.35],
+            'tat_dropout_att':  [0.1, 0.3],
+            'iLR':              [1e-5, 1e-3],
+            'do_clip':          (True, False)}}, # ??? 0.7958
 
     'seq_tat_ind': {
         'fwd_func':         seq,
