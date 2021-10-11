@@ -232,11 +232,11 @@ presets = {
             'time_drop':        [0.2, 0.4],
             'feat_drop':        [0.05, 0.2],
             'tat_shared_lays':  (True, False),
-            'tat_n_blocks':     [1, 10],
+            'tat_n_blocks':     [8, 13],#[1, 10],        # >>
             'tat_n_heads':      (5, 10),
-            #'tat_dense_mul':    [2, 6],
-            'tat_dropout':      [0.2, 0.35],
-            'tat_dropout_att':  [0.1, 0.3],
+            'tat_dense_mul':    [3, 6],#[2, 6],        # ?
+            'tat_dropout':      [0.1, 0.25],#[0.2, 0.35],    # <<
+            'tat_dropout_att':  [0.25, 0.4],#[0.1, 0.3],     # >>
             'iLR':              [1e-5, 1e-3],
             'do_clip':          (True, False)}}, # ??? 0.7958
 

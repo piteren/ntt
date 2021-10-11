@@ -4,7 +4,7 @@ echo "Creating venv in: ${VENV_DIR}"
 
 [ -d "${VENV_DIR}" ] && rm -rf "${VENV_DIR}";
 virtualenv -p python3.7 ${VENV_DIR}
-echo export PYTHONPATH="${HEREDIR}" >> ${VENV_DIR}/bin/activate
+echo export PYTHONPATH="${HEREDIR}" >> ${VENV_DIR}/bin/activate # set PYTHONPATH to ntt project
 source ${VENV_DIR}/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
