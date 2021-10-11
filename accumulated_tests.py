@@ -9,7 +9,7 @@ from model_train import train_model
 
 class NNTTrainer(RunningWorkerGPU):
 
-    def run(self, preset_name) -> Any:
+    def process(self, preset_name) -> Any:
         return train_model(
             preset_name=        preset_name,
             devices=            self.devices,
@@ -23,9 +23,10 @@ def accumulated_TRTS(
         num_acc_runs=       30) -> dict:
 
     ompr = OMPRunnerGPU(
-        devices=    devices,
-        rw_class=   NNTTrainer,
-        verb=       1)
+        devices=        devices,
+        rw_class=       NNTTrainer,
+        rw_lifetime=    1,
+        verb=           1)
 
     acc_test_results = {}
     tasks = []
