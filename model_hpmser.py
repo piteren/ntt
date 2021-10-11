@@ -24,7 +24,7 @@ if __name__ == '__main__':
         #('seq_tns_tf',          3),
         #('seq_tns_ind',         3),
         #('seq_tat',             8),
-        ('seq_tat_tf',          6),
+        ('seq_tat_tf',          5),
         #('seq_tat_ind',         8),
     ]
 
