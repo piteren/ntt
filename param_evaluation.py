@@ -11,7 +11,7 @@ from model_train import train_model
 
 class EvalTrainer(RunningWorkerGPU):
 
-    def process(self, **kwargs) -> Any:
+    def run(self, **kwargs) -> Any:
         return train_model(
             devices=        self.devices,
             hpmser_mode=    True,
@@ -43,10 +43,9 @@ def evaluate_param(
     ompr = OMPRunnerGPU(
         devices=        devices,
         rw_class=       EvalTrainer,
-        rw_lifetime=    1,
         verb=           1)
 
-    results = ompr.process(tasks)
+    results = ompr.process(tasks, restart=1)
     yx = list(zip(results,params))
     yx.sort(key= lambda x:x[1])
 

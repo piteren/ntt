@@ -9,7 +9,7 @@ from model_train import train_model
 
 class NNTTrainer(RunningWorkerGPU):
 
-    def process(self, preset_name) -> Any:
+    def run(self, preset_name) -> Any:
         return train_model(
             preset_name=        preset_name,
             devices=            self.devices,
@@ -25,7 +25,6 @@ def accumulated_TRTS(
     ompr = OMPRunnerGPU(
         devices=        devices,
         rw_class=       NNTTrainer,
-        rw_lifetime=    1,
         verb=           1)
 
     acc_test_results = {}
@@ -35,7 +34,9 @@ def accumulated_TRTS(
         tasks += [{'preset_name':preset_name}] * num_acc_runs
     random.shuffle(tasks) # shuffle tasks for balanced load
 
-    all_results = ompr.process(tasks)
+    all_results = ompr.process(tasks,
+                               restart=1
+                               )
     for td, res in zip(tasks,all_results):
         acc_test_results[td['preset_name']].append(res)
 
@@ -52,7 +53,7 @@ if __name__ == '__main__':
         #devices=[0,1]*5,
         devices=[0]*5,
         presets= [
-            #'use_base_U0',
+            'use_base_U0',
             #'use_base_U1',
             #'use_base_U2',
             #'use_one_hidden',
@@ -63,9 +64,11 @@ if __name__ == '__main__':
             #'seq_cnn',
             #'seq_cnn_tf',
             #'seq_cnn_ind',
+            'seq_cnn_tf_layDRTEX',
             #'seq_tns',
             #'seq_tns_tf',
+            'seq_tns_ind',
             #'seq_tat',
             #'seq_tat_tf',
-            'seq_tat_ind',
+            #'seq_tat_ind',
     ])
