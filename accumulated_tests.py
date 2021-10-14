@@ -34,9 +34,8 @@ def accumulated_TRTS(
         tasks += [{'preset_name':preset_name}] * num_acc_runs
     random.shuffle(tasks) # shuffle tasks for balanced load
 
-    all_results = ompr.process(tasks,
-                               restart=1
-                               )
+    all_results = ompr.process(tasks, restart=1)
+
     for td, res in zip(tasks,all_results):
         acc_test_results[td['preset_name']].append(res)
 
@@ -53,7 +52,7 @@ if __name__ == '__main__':
         #devices=[0,1]*5,
         devices=[0]*5,
         presets= [
-            'use_base_U0',
+            #'use_base_U0',
             #'use_base_U1',
             #'use_base_U2',
             #'use_one_hidden',
@@ -69,6 +68,6 @@ if __name__ == '__main__':
             #'seq_tns_tf',
             'seq_tns_ind',
             #'seq_tat',
-            #'seq_tat_tf',
+            'seq_tat_tf',
             #'seq_tat_ind',
     ])
