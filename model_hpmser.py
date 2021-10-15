@@ -21,10 +21,10 @@ if __name__ == '__main__':
         #('seq_cnn_ind',         2),
         #('seq_cnn_tf_layDRTEX', 2),
         #('seq_tns',             4),
-        #('seq_tns_tf',          3),
+        ('seq_tns_tf',          3),
         #('seq_tns_ind',         3),
         #('seq_tat',             8),
-        ('seq_tat_tf',          5),
+        #('seq_tat_tf',          5),
         #('seq_tat_ind',         8),
     ]
 

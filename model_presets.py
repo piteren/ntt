@@ -53,15 +53,14 @@ presets = {
         'do_clip':          True,
         'reduce':           'avg_max',
         'psdd': {
-            'batch_size':           (64,128),
-            'time_drop':            [0.0, 0.99],
-            'feat_drop':            [0.0, 0.99],
-            'cnn_shared_lays':      (True, False),
-            'cnn_n_layers':         [2, 7],
-            'cnn_n_filters':        [64, 186],
-            'cnn_lay_drop':         [0.0, 0.99],
-            'iLR':                  [1e-7, 1e-1],
-            'do_clip':              (True, False)}}, # 0.8157
+            'time_drop':            [0.2, 0.4],
+            'feat_drop':            [0.0, 0.1],
+            #'cnn_shared_lays':      (True, False),
+            'cnn_n_layers':         [2, 8],
+            'cnn_n_filters':        [128, 196],
+            'cnn_lay_drop':         [0.2, 0.4],
+            'iLR':                  [1e-4, 1e-3],
+            'do_clip':              (True, False)}}, # ??? 0.8157
 
     'seq_cnn_ind': { # CNN with added input dropout
         'fwd_func':         seq,
@@ -76,14 +75,13 @@ presets = {
         'do_clip':          True,
         'reduce':           'avg_max',
         'psdd': {
-            'batch_size':           (64,128),
-            'input_drop':           [0.0, 0.99],
-            'cnn_shared_lays':      (True, False),
-            'cnn_n_layers':         [2, 7],
-            'cnn_n_filters':        [64, 186],
-            'cnn_lay_drop':         [0.0, 0.99],
-            'iLR':                  [1e-7, 1e-1],
-            'do_clip':              (True, False)}}, # 0.8091
+            'input_drop':           [0.2, 0.3],
+            #'cnn_shared_lays':      (True, False),
+            'cnn_n_layers':         [2, 8],
+            'cnn_n_filters':        [128, 196],
+            'cnn_lay_drop':         [0.25, 0.4],
+            'iLR':                  [1e-4, 1e-3],
+            'do_clip':              (True, False)}}, # ??? 0.8091
 
     'seq_cnn_tf_lay_DRT': { # CNN with added TF dropout and lay_DRT_EX
         'fwd_func':             seq,
@@ -158,16 +156,16 @@ presets = {
         'do_clip':          False,
         'reduce':           'avg_max',
         'psdd': {
-            'time_drop':        [0.0, 0.99],
-            'feat_drop':        [0.0, 0.99],
+            'time_drop':        [0.1, 0.3],
+            'feat_drop':        [0.0, 0.2],
             'tns_shared_lays':  (True, False),
             'tns_n_blocks':     [2, 10],
             'tns_n_heads':      (1, 2, 5, 10),
             'tns_dense_mul':    [2, 10],
-            'tns_dropout':      [0.3, 0.8],
-            'tns_dropout_att':  [0.0, 0.2],
-            'iLR':              [1e-7, 1e-3],
-            'do_clip':          (True, False)}}, # 0.7953
+            'tns_dropout':      [0.2, 0.5],
+            'tns_dropout_att':  [0.1, 0.5],
+            'iLR':              [1e-5, 1e-3],
+            'do_clip':          (True, False)}}, # ??? 0.7953
 
     'seq_tns_ind': { # TNS with added input dropout
         'fwd_func':         seq,
@@ -184,15 +182,15 @@ presets = {
         'do_clip':          True,
         'reduce':           'avg_max',
         'psdd': {
-            'input_drop':       [0.0, 0.99],
+            'input_drop':       [0.1, 0.3],
             'tns_shared_lays':  (True, False),
             'tns_n_blocks':     [2, 10],
             'tns_n_heads':      (1, 2, 5, 10),
             'tns_dense_mul':    [2, 10],
-            'tns_dropout':      [0.3, 0.8],
+            'tns_dropout':      [0.25, 0.6],
             'tns_dropout_att':  [0.0, 0.2],
-            'iLR':              [1e-7, 1e-3],
-            'do_clip':          (True, False)}}, # 0.8000
+            'iLR':              [1e-5, 1e-3],
+            'do_clip':          (True, False)}}, # ??? 0.8000
 
     'seq_tat': {
         'fwd_func':         seq,
@@ -261,15 +259,15 @@ presets = {
         'do_clip':          False,
         'reduce':           None,
         'psdd': {
-            'input_drop':       [0.0, 0.99],
-            'tat_shared_lays':  (True, False),
-            'tat_n_blocks':     [1, 7],
+            'input_drop':       [0.1, 0.3],
+            #'tat_shared_lays':  (True, False),
+            'tat_n_blocks':     [5, 8],
             'tat_n_heads':      (1, 2, 5, 10),
             'tat_dense_mul':    [2, 6],
-            'tat_dropout':      [0.0, 0.99],
-            'tat_dropout_att':  [0.0, 0.99],
-            'iLR':              [1e-7, 1e-1],
-            'do_clip':          (True, False)}}, # 0.7985
+            'tat_dropout':      [0.1, 0.6],
+            'tat_dropout_att':  [0.1, 0.5],
+            'iLR':              [1e-5, 1e-3],
+            'do_clip':          (True, False)}}, # ??? 0.7985
 
     'use_base_U0': { # USE U0 to logits
         'fwd_func':     use,
