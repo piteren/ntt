@@ -85,7 +85,7 @@ presets = {
             'iLR':                  [1e-7, 1e-1],
             'do_clip':              (True, False)}}, # 0.8091
 
-    'seq_cnn_tf_layDRTEX': { # CNN with added TF dropout and lay_DRT_EX
+    'seq_cnn_tf_lay_DRT': { # CNN with added TF dropout and lay_DRT_EX
         'fwd_func':             seq,
         'model_type':           SeqModel,
         'make_cnn':             True,
@@ -118,7 +118,7 @@ presets = {
             'cnn_ldrt_res':         (True, False),
             'cnn_ldrt_res_drop':    [0.0, 0.99],
             'iLR':                  [1e-7, 1e-1],
-            'do_clip':              (True, False)}}, # ???
+            'do_clip':              (True, False)}}, # 0.8067
 
     'seq_tns': {
         'fwd_func':         seq,
@@ -192,7 +192,7 @@ presets = {
             'tns_dropout':      [0.3, 0.8],
             'tns_dropout_att':  [0.0, 0.2],
             'iLR':              [1e-7, 1e-3],
-            'do_clip':          (True, False)}}, # ???
+            'do_clip':          (True, False)}}, # 0.8000
 
     'seq_tat': {
         'fwd_func':         seq,
@@ -222,29 +222,29 @@ presets = {
         'fwd_func':         seq,
         'model_type':       SeqModel,
         'make_tat':         True,
-        'time_drop':        0.3,
-        'feat_drop':        0.1,
+        'time_drop':        0.25,
+        'feat_drop':        0.095,
         'tat_shared_lays':  False,
-        'tat_n_blocks':     9,
+        'tat_n_blocks':     12,
         'tat_n_heads':      10,
-        'tat_dense_mul':    3,
-        'tat_dropout':      0.2,
-        'tat_dropout_att':  0.3,
-        'iLR':              3.1e-4,
+        'tat_dense_mul':    5,
+        'tat_dropout':      0.192,
+        'tat_dropout_att':  0.399,
+        'iLR':              3.6e-4,
         'do_clip':          False,
         'reduce':           None,
         'psdd': {
-            'time_drop':        [0.25, 0.25],
+            'time_drop':        [0.25, 0.35],
             'feat_drop':        [0.05, 0.15],
             #'tat_shared_lays':  (True, False),
-            'tat_n_blocks':     [8, 13],#[1, 10],        # >>
+            'tat_n_blocks':     [9, 13],
             #'tat_n_heads':      (5, 10),
-            'tat_dense_mul':    [3, 6],#[2, 6],        # ?
-            'tat_dropout':      [0.1, 0.25],#[0.2, 0.35],    # <<
-            'tat_dropout_att':  [0.25, 0.4],#[0.1, 0.3],     # >>
-            'iLR':              [1e-4, 1e-3],
+            'tat_dense_mul':    [4, 6],
+            'tat_dropout':      [0.15, 0.25],
+            'tat_dropout_att':  [0.3, 0.5],
+            #'iLR':              [1e-4, 1e-3],
             #'do_clip':          (True, False)
-        }}, # ??? 0.7958
+        }}, # ??? 0.7983
 
     'seq_tat_ind': {
         'fwd_func':         seq,

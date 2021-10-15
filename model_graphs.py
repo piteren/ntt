@@ -3,9 +3,7 @@ from defaults import EMB_SHAPE, BPE_STD, MAX_SEQ_LEN
 from ptools.neuralmess.get_tf import tf
 from ptools.neuralmess.base_elements import my_initializer
 from ptools.neuralmess.layers import lay_dense, tf_drop
-from ptools.neuralmess.encoders import enc_CNN, enc_TNS, enc_DRT
-from ptools.neuralmess.encoders_EX import lay_DRT_EX
-
+from ptools.neuralmess.encoders import enc_CNN, enc_TNS
 
 # sequence graph
 def seq(name: str=              'seq',
