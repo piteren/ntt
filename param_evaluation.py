@@ -3,7 +3,7 @@ from typing import Any
 
 from ptools.lipytools.little_methods import prep_folder
 from ptools.lipytools.plots import two_dim
-from ptools.mpython.omp_ex import OMPRunner, RunningWorker
+from ptools.mpython.omp import OMPRunner, RunningWorker
 
 
 from model_train import train_model
@@ -48,9 +48,7 @@ def evaluate_param(
         devices=        devices,
         verb=           1)
 
-    ompr.process(tasks)
-    results = ompr.get_all_results()
-    ompr.exit()
+    results = ompr.process(tasks)
     yx = list(zip(results,params))
     yx.sort(key= lambda x:x[1])
 

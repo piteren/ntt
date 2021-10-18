@@ -1,7 +1,7 @@
 import random
 from typing import List, Any
 
-from ptools.mpython.omp_ex import OMPRunner, RunningWorker
+from ptools.mpython.omp import OMPRunner, RunningWorker
 from ptools.lipytools.stats import msmx
 
 from model_train import train_model
@@ -38,9 +38,7 @@ def accumulated_TRTS(
         tasks += [{'preset_name':preset_name}] * num_acc_runs
     random.shuffle(tasks) # shuffle tasks for balanced load
 
-    ompr.process(tasks)
-    all_results = ompr.get_all_results()
-    ompr.exit()
+    all_results = ompr.process(tasks)
 
     for td, res in zip(tasks,all_results):
         acc_test_results[td['preset_name']].append(res)
