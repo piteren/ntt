@@ -242,7 +242,7 @@ presets = {
             'tat_dropout_att':  [0.3, 0.5],
             #'iLR':              [1e-4, 1e-3],
             #'do_clip':          (True, False)
-        }}, # ??? 0.7983
+        }}, # ??? 0.7996
 
     'seq_tat_ind': {
         'fwd_func':         seq,

@@ -1,15 +1,18 @@
 import random
 from typing import List, Any
 
-from ptools.mpython.omp import OMPRunnerGPU, RunningWorkerGPU
+from ptools.mpython.omp_ex import OMPRunner, RunningWorker
 from ptools.lipytools.stats import msmx
 
 from model_train import train_model
 
 
-class NNTTrainer(RunningWorkerGPU):
+class NNTTrainer(RunningWorker):
 
-    def run(self, preset_name) -> Any:
+    def __init__(self, devices):
+        self.devices = devices
+
+    def process(self, preset_name) -> Any:
         return train_model(
             preset_name=        preset_name,
             devices=            self.devices,
@@ -22,9 +25,10 @@ def accumulated_TRTS(
         devices=            [0,1]*5,
         num_acc_runs=       30) -> dict:
 
-    ompr = OMPRunnerGPU(
-        devices=        devices,
+    ompr = OMPRunner(
         rw_class=       NNTTrainer,
+        rw_lifetime=    1,
+        devices=        devices,
         verb=           1)
 
     acc_test_results = {}
@@ -34,7 +38,9 @@ def accumulated_TRTS(
         tasks += [{'preset_name':preset_name}] * num_acc_runs
     random.shuffle(tasks) # shuffle tasks for balanced load
 
-    all_results = ompr.process(tasks, restart=1)
+    ompr.process(tasks)
+    all_results = ompr.get_all_results()
+    ompr.exit()
 
     for td, res in zip(tasks,all_results):
         acc_test_results[td['preset_name']].append(res)
@@ -49,10 +55,9 @@ def accumulated_TRTS(
 if __name__ == '__main__':
 
     accumulated_TRTS(
-        #devices=[0,1]*5,
-        devices=[0]*5,
+        #devices=[0]*5,
         presets= [
-            #'use_base_U0',
+            'use_base_U0',
             #'use_base_U1',
             #'use_base_U2',
             #'use_one_hidden',
@@ -68,6 +73,6 @@ if __name__ == '__main__':
             #'seq_tns_tf',
             #'seq_tns_ind',
             #'seq_tat',
-            'seq_tat_tf',
+            #'seq_tat_tf',
             #'seq_tat_ind',
     ])

@@ -3,15 +3,18 @@ from typing import Any
 
 from ptools.lipytools.little_methods import prep_folder
 from ptools.lipytools.plots import two_dim
-from ptools.mpython.omp import OMPRunnerGPU, RunningWorkerGPU
+from ptools.mpython.omp_ex import OMPRunner, RunningWorker
 
 
 from model_train import train_model
 
 
-class EvalTrainer(RunningWorkerGPU):
+class EvalTrainer(RunningWorker):
 
-    def run(self, **kwargs) -> Any:
+    def __init__(self, devices):
+        self.devices = devices
+
+    def process(self, **kwargs) -> Any:
         return train_model(
             devices=        self.devices,
             hpmser_mode=    True,
@@ -25,8 +28,7 @@ def evaluate_param(
         log=            False,  # log / lin scale
         type_int=       False,  # False for float else int
         num_samples=    300,
-        devices=        [0,1]*5,
-):
+        devices=        [0,1]*5):
 
     seed = [1/num_samples * x for x in range(num_samples)]
     if log:
@@ -40,12 +42,15 @@ def evaluate_param(
         'preset_name':  preset_name,
         param:          p} for p in params]
 
-    ompr = OMPRunnerGPU(
-        devices=        devices,
+    ompr = OMPRunner(
         rw_class=       EvalTrainer,
+        rw_lifetime=    1,
+        devices=        devices,
         verb=           1)
 
-    results = ompr.process(tasks, restart=1)
+    ompr.process(tasks)
+    results = ompr.get_all_results()
+    ompr.exit()
     yx = list(zip(results,params))
     yx.sort(key= lambda x:x[1])
 
