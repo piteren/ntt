@@ -144,15 +144,15 @@ presets = {
         'fwd_func':         seq,
         'model_type':       SeqModel,
         'make_tns':         True,
-        'time_drop':        0.11,
-        'feat_drop':        0.18,
-        'tns_shared_lays':  False,#True,
-        'tns_n_blocks':     8,#7,
-        'tns_n_heads':      2,#1,
-        'tns_dense_mul':    8,#10,
-        'tns_dropout':      0.2,#0.34,
-        'tns_dropout_att':  0.37,#0.19,
-        'iLR':              2.0e-4,
+        'time_drop':        0.19,
+        'feat_drop':        0.12,
+        'tns_shared_lays':  True,
+        'tns_n_blocks':     7,
+        'tns_n_heads':      1,
+        'tns_dense_mul':    10,
+        'tns_dropout':      0.34,
+        'tns_dropout_att':  0.19,
+        'iLR':              1.1e-4,
         'do_clip':          False,
         'reduce':           'avg_max',
         'psdd': {
@@ -165,7 +165,7 @@ presets = {
             'tns_dropout':      [0.2, 0.5], # <<
             'tns_dropout_att':  [0.1, 0.5],
             'iLR':              [1e-5, 1e-3],
-            'do_clip':          (True, False)}}, # ??? 0.7953
+            'do_clip':          (True, False)}}, # 0.7953
 
     'seq_tns_ind': { # TNS with added input dropout
         'fwd_func':         seq,
@@ -220,14 +220,14 @@ presets = {
         'fwd_func':         seq,
         'model_type':       SeqModel,
         'make_tat':         True,
-        'time_drop':        0.28,#0.25,
-        'feat_drop':        0.075,#0.095,
+        'time_drop':        0.25,
+        'feat_drop':        0.095,
         'tat_shared_lays':  False,
-        'tat_n_blocks':     13,#12,
+        'tat_n_blocks':     12,
         'tat_n_heads':      10,
         'tat_dense_mul':    5,
-        'tat_dropout':      0.25,#0.192,
-        'tat_dropout_att':  0.42,#0.399,
+        'tat_dropout':      0.192,
+        'tat_dropout_att':  0.399,
         'iLR':              3.6e-4,
         'do_clip':          False,
         'reduce':           None,
@@ -242,7 +242,7 @@ presets = {
             'tat_dropout_att':  [0.3, 0.5],
             #'iLR':              [1e-4, 1e-3],
             #'do_clip':          (True, False)
-        }}, # ??? 0.7996
+        }}, # 0.7996
 
     'seq_tat_ind': {
         'fwd_func':         seq,
