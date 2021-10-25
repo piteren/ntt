@@ -16,14 +16,15 @@ class NNTTrainer(RunningWorker):
         return train_model(
             preset_name=        preset_name,
             devices=            self.devices,
-            hpmser_mode=        True)
+            hpmser_mode=        True,
+            verb=               0)
 
 
 # accumulated train and test for given preset
 def accumulated_TRTS(
         presets: List[str],
         devices=            [0,1]*5,
-        num_acc_runs=       30) -> dict:
+        num_acc_runs=       10) -> dict:
 
     ompr = OMPRunner(
         rw_class=       NNTTrainer,
@@ -53,24 +54,22 @@ def accumulated_TRTS(
 if __name__ == '__main__':
 
     accumulated_TRTS(
-        devices=[0]*5,
+        #devices=[0]*5,
         presets= [
             #'use_base_U0',
             #'use_base_U1',
             #'use_base_U2',
             #'use_one_hidden',
             #'use_hidden_stack',
-            #'use_more',
-            #'use_drt',
-            #'seq_reduced',
-            #'seq_cnn',
-            #'seq_cnn_tf',
-            #'seq_cnn_ind',
-            #'seq_cnn_tf_lay_DRT',
-            #'seq_tns',
+            'seq_reduced',
+            'seq_cnn',
+            'seq_cnn_tf',
+            'seq_cnn_ind',
+            'seq_cnn_tf_lay_DRT',
+            'seq_tns',
             'seq_tns_tf',
-            #'seq_tns_ind',
-            #'seq_tat',
+            'seq_tns_ind',
+            'seq_tat',
             'seq_tat_tf',
-            #'seq_tat_ind',
+            'seq_tat_ind',
     ])

@@ -278,7 +278,7 @@ presets = {
         'psdd': {
             'batch_size':   (16,32,64,128,256),
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False)}}, # 0.8406
+            'do_clip':      (True, False)}}, # 0.8399
 
     'use_base_U1': { # USE U1 to logits
         'fwd_func':     use,
@@ -289,7 +289,7 @@ presets = {
         'psdd': {
             'batch_size':   (16,32,64,128,256),
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False)}}, # 0.8406
+            'do_clip':      (True, False)}}, # 0.8399
 
     'use_base_U2': { # USE U2 to logits
         'fwd_func':     use,
@@ -300,7 +300,7 @@ presets = {
         'psdd': {
             'batch_size':   (16,32,64,128,256),
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False)}}, # 0.8396
+            'do_clip':      (True, False)}}, # 0.8395
 
     'use_one_hidden': { # USE with one hidden layer (search for width, no drop)
         'fwd_func':     use,
@@ -314,7 +314,7 @@ presets = {
             'batch_size':   (16,32,64,128,256),
             'hid_width':    [12, 1024],
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False)}}, # 0.8428
+            'do_clip':      (True, False)}}, # 0.8419
 
     'use_hidden_stack': { # USE with MORE hidden layers, allowed dropout
         'fwd_func':     use,
@@ -332,7 +332,7 @@ presets = {
             'hid_width':    [12, 1024],
             'hid_dropout':  [0.0, 0.99],
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False)}}, # 0.8472
+            'do_clip':      (True, False)}}, # 0.8468
 }
 
 def get_preset(preset_name: str) -> dict:
