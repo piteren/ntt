@@ -7,7 +7,7 @@ from model_train import train_model
 if __name__ == '__main__':
 
     presets_dm = [
-        ('use_base_U0',         10),
+        #('use_base_U0',         10),
         #('use_base_U1',         10),
         #('use_base_U2',         10),
         #('use_one_hidden',      10),
@@ -25,7 +25,7 @@ if __name__ == '__main__':
         #('seq_tns_ind',         3),
         #('seq_tat',             8),
         #('seq_tat_tf',          5),
-        #('seq_tat_ind',         8),
+        ('seq_tat_ind',         8),
     ]
 
     for preset_name, dm in presets_dm:

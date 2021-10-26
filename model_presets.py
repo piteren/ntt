@@ -238,7 +238,7 @@ presets = {
             'tat_n_blocks':     [9, 13],
             #'tat_n_heads':      (5, 10),
             'tat_dense_mul':    [4, 6],
-            'tat_dropout':      [0.15, 0.25], # >>
+            'tat_dropout':      [0.15, 0.35],
             'tat_dropout_att':  [0.3, 0.5],
             #'iLR':              [1e-4, 1e-3],
             #'do_clip':          (True, False)
