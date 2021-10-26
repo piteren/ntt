@@ -15,7 +15,7 @@ presets = {
             'batch_size':   (16,32,64,128,256),
             'reduce':       ('avg','max','avg_max'),
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False)}}, # 0.6884(100) ... 0.7294(500) 0.7259(200) 0.6539(50)
+            'do_clip':      (True, False)}}, # 0.6862(100) ... 0.7294(500) 0.7259(200) 0.6539(50)
 
     'seq_cnn': {
         'fwd_func':         seq,
@@ -37,7 +37,7 @@ presets = {
             'cnn_n_filters':        [64, 186],
             'cnn_lay_drop':         [0.0, 0.99],
             'iLR':                  [1e-7, 1e-1],
-            'do_clip':              (True, False)}}, # 0.8054
+            'do_clip':              (True, False)}}, # 0.8050
 
     'seq_cnn_tf': { # CNN with added TF dropout
         'fwd_func':         seq,
@@ -60,7 +60,7 @@ presets = {
             'cnn_n_filters':        [128, 196],
             'cnn_lay_drop':         [0.2, 0.4],
             'iLR':                  [1e-4, 1e-3],
-            'do_clip':              (True, False)}}, # ??? 0.8157
+            'do_clip':              (True, False)}}, # ??? 0.8084
 
     'seq_cnn_ind': { # CNN with added input dropout
         'fwd_func':         seq,
@@ -81,7 +81,7 @@ presets = {
             'cnn_n_filters':        [128, 196],
             'cnn_lay_drop':         [0.25, 0.4],
             'iLR':                  [1e-4, 1e-3],
-            'do_clip':              (True, False)}}, # ??? 0.8091
+            'do_clip':              (True, False)}}, # ??? 0.8104
 
     'seq_cnn_tf_lay_DRT': { # CNN with added TF dropout and lay_DRT_EX
         'fwd_func':             seq,
@@ -116,7 +116,7 @@ presets = {
             'cnn_ldrt_res':         (True, False),
             'cnn_ldrt_res_drop':    [0.0, 0.99],
             'iLR':                  [1e-7, 1e-1],
-            'do_clip':              (True, False)}}, # 0.8067
+            'do_clip':              (True, False)}}, # 0.8104
 
     'seq_tns': {
         'fwd_func':         seq,
@@ -138,7 +138,7 @@ presets = {
             'tns_dropout':      [0.3, 0.8],
             'tns_dropout_att':  [0.0, 0.2],
             'iLR':              [1e-7, 1e-3],
-            'do_clip':          (True, False)}}, # 0.7869
+            'do_clip':          (True, False)}}, # 0.7930
 
     'seq_tns_tf': { # TNS with added TF dropout
         'fwd_func':         seq,
@@ -165,7 +165,7 @@ presets = {
             'tns_dropout':      [0.2, 0.5], # <<
             'tns_dropout_att':  [0.1, 0.5],
             'iLR':              [1e-5, 1e-3],
-            'do_clip':          (True, False)}}, # 0.7953
+            'do_clip':          (True, False)}}, # 0.7898
 
     'seq_tns_ind': { # TNS with added input dropout
         'fwd_func':         seq,
@@ -190,7 +190,7 @@ presets = {
             'tns_dropout':      [0.25, 0.6],
             'tns_dropout_att':  [0.0, 0.2],
             'iLR':              [1e-5, 1e-3],
-            'do_clip':          (True, False)}}, # ??? 0.8000
+            'do_clip':          (True, False)}}, # ??? 0.7952
 
     'seq_tat': {
         'fwd_func':         seq,
@@ -214,7 +214,7 @@ presets = {
             'tat_dropout':      [0.0, 0.99],
             'tat_dropout_att':  [0.0, 0.99],
             'iLR':              [1e-7, 1e-1],
-            'do_clip':          (True, False)}}, # 0.7796
+            'do_clip':          (True, False)}}, # 0.7800
 
     'seq_tat_tf': {
         'fwd_func':         seq,
@@ -242,7 +242,7 @@ presets = {
             'tat_dropout_att':  [0.3, 0.5],
             #'iLR':              [1e-4, 1e-3],
             #'do_clip':          (True, False)
-        }}, # 0.7996
+        }}, # 0.7911
 
     'seq_tat_ind': {
         'fwd_func':         seq,
@@ -267,7 +267,7 @@ presets = {
             'tat_dropout':      [0.1, 0.6],
             'tat_dropout_att':  [0.1, 0.5],
             'iLR':              [1e-5, 1e-3],
-            'do_clip':          (True, False)}}, # ??? 0.7985
+            'do_clip':          (True, False)}}, # ??? 0.7929
 
     'use_base_U0': { # USE U0 to logits
         'fwd_func':     use,
@@ -278,7 +278,7 @@ presets = {
         'psdd': {
             'batch_size':   (16,32,64,128,256),
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False)}}, # 0.8399
+            'do_clip':      (True, False)}}, # 0.8395
 
     'use_base_U1': { # USE U1 to logits
         'fwd_func':     use,
@@ -289,7 +289,7 @@ presets = {
         'psdd': {
             'batch_size':   (16,32,64,128,256),
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False)}}, # 0.8399
+            'do_clip':      (True, False)}}, # 0.8395
 
     'use_base_U2': { # USE U2 to logits
         'fwd_func':     use,
@@ -300,7 +300,7 @@ presets = {
         'psdd': {
             'batch_size':   (16,32,64,128,256),
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False)}}, # 0.8395
+            'do_clip':      (True, False)}}, # 0.8394
 
     'use_one_hidden': { # USE with one hidden layer (search for width, no drop)
         'fwd_func':     use,
@@ -314,7 +314,7 @@ presets = {
             'batch_size':   (16,32,64,128,256),
             'hid_width':    [12, 1024],
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False)}}, # 0.8419
+            'do_clip':      (True, False)}}, # 0.8416
 
     'use_hidden_stack': { # USE with MORE hidden layers, allowed dropout
         'fwd_func':     use,
@@ -332,7 +332,7 @@ presets = {
             'hid_width':    [12, 1024],
             'hid_dropout':  [0.0, 0.99],
             'iLR':          [1e-7, 1e-1],
-            'do_clip':      (True, False)}}, # 0.8468
+            'do_clip':      (True, False)}}, # 0.8455
 }
 
 def get_preset(preset_name: str) -> dict:
