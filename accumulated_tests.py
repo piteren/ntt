@@ -56,11 +56,11 @@ if __name__ == '__main__':
     accumulated_TRTS(
         devices=[0]*5,
         presets= [
-            #'use_base_U0',
-            #'use_base_U1',
-            #'use_base_U2',
-            #'use_one_hidden',
-            #'use_hidden_stack',
+            'use_base_U0',
+            'use_base_U1',
+            'use_base_U2',
+            'use_one_hidden',
+            'use_hidden_stack',
             'seq_reduced',
             'seq_cnn',
             'seq_cnn_tf',
