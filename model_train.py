@@ -42,7 +42,7 @@ def train_many(presets: List[str]):
 
 if __name__ == '__main__':
 
-    train_model(preset_name='use_base_U0', verb=2)
+    train_model(preset_name='seq_cnn_tf', verb=2)
 
     presets = [
         'use_base_U0',
