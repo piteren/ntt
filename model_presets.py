@@ -232,17 +232,16 @@ presets = {
         'do_clip':          False,
         'reduce':           None,
         'psdd': {
-            'time_drop':        [0.25, 0.35],
-            'feat_drop':        [0.05, 0.15],
-            #'tat_shared_lays':  (True, False),
-            'tat_n_blocks':     [9, 13],
-            #'tat_n_heads':      (5, 10),
-            'tat_dense_mul':    [4, 6],
-            'tat_dropout':      [0.15, 0.35],
-            'tat_dropout_att':  [0.3, 0.5],
-            #'iLR':              [1e-4, 1e-3],
-            #'do_clip':          (True, False)
-        }}, # 0.7911
+            'time_drop':        [0.0, 0.4],
+            'feat_drop':        [0.0, 0.4],
+            'tat_shared_lays':  (True, False),
+            'tat_n_blocks':     [5, 13],
+            'tat_n_heads':      (1, 2, 5, 10),
+            'tat_dense_mul':    [2, 6],
+            'tat_dropout':      [0.1, 0.6],
+            'tat_dropout_att':  [0.1, 0.5],
+            'iLR':              [1e-5, 1e-3],
+            'do_clip':          (True, False)}}, # 0.7911
 
     'seq_tat_ind': {
         'fwd_func':         seq,
@@ -259,15 +258,15 @@ presets = {
         'do_clip':          False,
         'reduce':           None,
         'psdd': {
-            'input_drop':       [0.1, 0.3],
-            #'tat_shared_lays':  (True, False),
-            'tat_n_blocks':     [5, 8],
+            'input_drop':       [0.0, 0.4],
+            'tat_shared_lays':  (True, False),
+            'tat_n_blocks':     [5, 13],
             'tat_n_heads':      (1, 2, 5, 10),
             'tat_dense_mul':    [2, 6],
             'tat_dropout':      [0.1, 0.6],
             'tat_dropout_att':  [0.1, 0.5],
             'iLR':              [1e-5, 1e-3],
-            'do_clip':          (True, False)}}, # ??? 0.7929
+            'do_clip':          (True, False)}}, # 0.7929
 
     'use_base_U0': { # USE U0 to logits
         'fwd_func':     use,
