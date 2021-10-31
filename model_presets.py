@@ -232,33 +232,16 @@ presets = {
         'do_clip':          True,#False,
         'reduce':           None,
         'psdd': {
-            'time_drop':        [0.0, 0.7],#[0.0, 0.4],     # >>
-            'feat_drop':        [0.0, 0.2],#[0.0, 0.4],     # ~0
-            #'tat_shared_lays':  (True, False),  # False
-            #'tat_n_blocks':     [5, 13],        # 13
-            #'tat_n_heads':      (1, 2, 5, 10),  # 10
-            'tat_dense_mul':    [4, 6],#[2, 6],         # 5
-            'tat_dropout':      [0.1, 0.6],
-            'tat_dropout_att':  [0.1, 0.5],
+            'time_drop':        [0.0, 0.9],
+            'feat_drop':        [0.0, 0.2],
+            'tat_shared_lays':  (True, False),
+            'tat_n_blocks':     [5, 13],
+            'tat_n_heads':      (1, 2, 5, 10),
+            'tat_dense_mul':    [4, 6],
+            'tat_dropout':      [0.0, 0.9],
+            'tat_dropout_att':  [0.0, 0.9],
             'iLR':              [1e-5, 1e-3],
-            #'do_clip':          (True, False)
-        }}, # 0.7911
-
-    'seq_tat_tf_NEW': {
-        'fwd_func':         seq,
-        'model_type':       SeqModel,
-        'make_tat':         True,
-        'time_drop':        0.4,
-        'feat_drop':        0.0,
-        'tat_shared_lays':  False,
-        'tat_n_blocks':     12,
-        'tat_n_heads':      10,
-        'tat_dense_mul':    5,
-        'tat_dropout':      0.26,
-        'tat_dropout_att':  0.35,
-        'iLR':              2.1e-4,
-        'do_clip':          True,
-        'reduce':           None}, # ???
+            'do_clip':          (True, False)}}, # 0.7911
 
     'seq_tat_ind': {
         'fwd_func':         seq,
@@ -275,30 +258,15 @@ presets = {
         'do_clip':          False,
         'reduce':           None,
         'psdd': {
-            'input_drop':       [0.0, 0.4],
+            'input_drop':       [0.0, 0.9],
             'tat_shared_lays':  (True, False),
             'tat_n_blocks':     [5, 13],
             'tat_n_heads':      (1, 2, 5, 10),
             'tat_dense_mul':    [2, 6],
-            'tat_dropout':      [0.1, 0.6],     # >>?
-            'tat_dropout_att':  [0.1, 0.5],
+            'tat_dropout':      [0.0, 0.9],
+            'tat_dropout_att':  [0.0, 0.9],
             'iLR':              [1e-5, 1e-3],
             'do_clip':          (True, False)}}, # 0.7929
-
-    'seq_tat_ind_NEW': {
-        'fwd_func':         seq,
-        'model_type':       SeqModel,
-        'make_tat':         True,
-        'input_drop':       0.25,
-        'tat_shared_lays':  False,
-        'tat_n_blocks':     13,
-        'tat_n_heads':      10,
-        'tat_dense_mul':    5,
-        'tat_dropout':      0.56,
-        'tat_dropout_att':  0.24,
-        'iLR':              4.2e-4,
-        'do_clip':          True,
-        'reduce':           None}, # ???
 
     'use_base_U0': { # USE U0 to logits
         'fwd_func':     use,
