@@ -70,6 +70,8 @@ if __name__ == '__main__':
             #'seq_tns_tf',
             #'seq_tns_ind',
             #'seq_tat',
-            'seq_tat_tf_NEW', # 0.7998
-            'seq_tat_ind_NEW',# 0.8004
+            'seq_tat_tf',
+            'seq_tat_ind',
+            #'seq_tat_tf_NEW', # 0.7998
+            #'seq_tat_ind_NEW',# 0.8004
     ])
