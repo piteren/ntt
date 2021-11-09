@@ -16,7 +16,7 @@ if __name__ == '__main__':
         #('use_drt',             10),
         #('use_more',            6),
         #('seq_reduced',         10),
-        #('seq_cnn',             2),
+        ('seq_cnn',             2),
         #('seq_cnn_tf',          2),
         #('seq_cnn_ind',         2),
         #('seq_cnn_tf_layDRTEX', 2),
@@ -25,7 +25,7 @@ if __name__ == '__main__':
         #('seq_tns_ind',         3),
         #('seq_tat',             8),
         #('seq_tat_tf',          5),
-        ('seq_tat_ind',         8),
+        #('seq_tat_ind',         8),
     ]
 
     for preset_name, dm in presets_dm:
