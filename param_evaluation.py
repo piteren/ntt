@@ -59,8 +59,7 @@ def evaluate_param(
         name=       f'eval_{param}_for_{preset_name}',
         save_FD=    save_FD,
         xlogscale=  log,
-        legend_loc= 'lower right'
-    )
+        legend_loc= 'lower right')
 
 
 if __name__ == '__main__':
