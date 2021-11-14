@@ -62,7 +62,7 @@ if __name__ == '__main__':
             #'use_one_hidden',
             #'use_hidden_stack',
             #'seq_reduced',
-            #'seq_cnn',
+            'seq_cnn',
             #'seq_cnn_tf',
             #'seq_cnn_ind',
             #'seq_cnn_tf_lay_DRT',
@@ -70,8 +70,8 @@ if __name__ == '__main__':
             #'seq_tns_tf',
             #'seq_tns_ind',
             #'seq_tat',
-            'seq_tat_tf',
-            'seq_tat_ind',
+            #'seq_tat_tf',
+            #'seq_tat_ind',
             #'seq_tat_tf_NEW', # 0.7998
             #'seq_tat_ind_NEW',# 0.8004
     ])
