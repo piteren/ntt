@@ -22,10 +22,10 @@ presets = {
         'model_type':       SeqModel,
         'make_cnn':         True,
         'cnn_shared_lays':  False,
-        'cnn_n_layers':     7,#5,
-        'cnn_n_filters':    140,#152,
-        'cnn_lay_drop':     0.49,#0.42,
-        'iLR':              2.3e-4,#8e-5,
+        'cnn_n_layers':     7,
+        'cnn_n_filters':    140,
+        'cnn_lay_drop':     0.49,
+        'iLR':              2.3e-4,
         'do_clip':          False,
         'reduce':           'avg_max',
         'psdd': {
@@ -34,7 +34,7 @@ presets = {
             'cnn_n_filters':        [64, 196],
             'cnn_lay_drop':         [0.0, 0.99],
             'iLR':                  [1e-6, 1e-2],
-            'do_clip':              (True, False)}}, # 0.8050
+            'do_clip':              (True, False)}}, # 0.8057 #
 
     'seq_cnn_tf': { # CNN with added TF dropout
         'fwd_func':         seq,
@@ -50,13 +50,13 @@ presets = {
         'do_clip':          True,
         'reduce':           'avg_max',
         'psdd': {
-            'time_drop':            [0.2, 0.4],
-            'feat_drop':            [0.0, 0.1],
-            #'cnn_shared_lays':      (True, False),
-            'cnn_n_layers':         [2, 8],
-            'cnn_n_filters':        [128, 196],
-            'cnn_lay_drop':         [0.2, 0.4],
-            'iLR':                  [1e-4, 1e-3],
+            'time_drop':            [0.0, 0.9],
+            'feat_drop':            [0.0, 0.2],
+            'cnn_shared_lays':      (True, False),
+            'cnn_n_layers':         [2, 9],
+            'cnn_n_filters':        [64, 196],
+            'cnn_lay_drop':         [0.0, 0.9],
+            'iLR':                  [1e-6, 1e-2],
             'do_clip':              (True, False)}}, # ??? 0.8084
 
     'seq_cnn_ind': { # CNN with added input dropout
