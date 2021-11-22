@@ -57,7 +57,7 @@ presets = {
             'cnn_n_filters':        [64, 196],
             'cnn_lay_drop':         [0.0, 0.9],
             'iLR':                  [1e-6, 1e-2],
-            'do_clip':              (True, False)}}, # ??? 0.8084
+            'do_clip':              (True, False)}}, # 0.815 #
 
     'seq_cnn_ind': { # CNN with added input dropout
         'fwd_func':         seq,
@@ -72,12 +72,12 @@ presets = {
         'do_clip':          True,
         'reduce':           'avg_max',
         'psdd': {
-            'input_drop':           [0.2, 0.3],
-            #'cnn_shared_lays':      (True, False),
-            'cnn_n_layers':         [2, 8],
-            'cnn_n_filters':        [128, 196],
-            'cnn_lay_drop':         [0.25, 0.4],
-            'iLR':                  [1e-4, 1e-3],
+            'input_drop':           [0.0, 0.5],
+            'cnn_shared_lays':      (True, False),
+            'cnn_n_layers':         [2, 9],
+            'cnn_n_filters':        [64, 196],
+            'cnn_lay_drop':         [0.0, 0.9],
+            'iLR':                  [1e-6, 1e-2],
             'do_clip':              (True, False)}}, # ??? 0.8104
 
     'seq_cnn_tf_lay_DRT': { # CNN with added TF dropout and lay_DRT_EX
