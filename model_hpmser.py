@@ -1,4 +1,4 @@
-from ptools.pms.hpmser.search_function import hpmser_GX_OMP
+from ptools.pms.hpmser.search_function import hpmser
 
 from model_presets import get_preset
 from model_train import train_model
@@ -29,10 +29,10 @@ if __name__ == '__main__':
     ]
 
     for preset_name, dm in presets_dm:
-        hpmser_GX_OMP(
+        hpmser(
             func=           train_model,
-            psdd=           get_preset(preset_name).pop('psdd'),
-            func_defaults=  {'preset_name':preset_name, 'verb':0},
+            func_psdd=      get_preset(preset_name).pop('psdd'),
+            func_const=     {'preset_name':preset_name, 'verb':0},
             name=           f'hpmser_for_{preset_name}',
             #devices=        [0,1]*dm,
             devices=        [0]*dm*2,
