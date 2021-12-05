@@ -78,7 +78,7 @@ presets = {
             'cnn_n_filters':        [64, 196],
             'cnn_lay_drop':         [0.0, 0.9],
             'iLR':                  [1e-6, 1e-2],
-            'do_clip':              (True, False)}}, # ??? 0.8104
+            'do_clip':              (True, False)}}, # 0.812 #
 
     'seq_cnn_tf_lay_DRT': { # CNN with added TF dropout and lay_DRT_EX
         'fwd_func':             seq,
@@ -132,8 +132,8 @@ presets = {
             'tns_n_blocks':     [2, 10],
             'tns_n_heads':      (1, 2, 5, 10),
             'tns_dense_mul':    [2, 10],
-            'tns_dropout':      [0.3, 0.8],
-            'tns_dropout_att':  [0.0, 0.2],
+            'tns_dropout':      [0.0, 0.99],
+            'tns_dropout_att':  [0.0, 0.99],
             'iLR':              [1e-7, 1e-3],
             'do_clip':          (True, False)}}, # 0.7930
 
