@@ -121,10 +121,11 @@ presets = {
         'make_tns':         True,
         'tns_shared_lays':  False,
         'tns_n_blocks':     6,
-        'tns_n_heads':      5,
-        'tns_dense_mul':    6,
+        'tns_n_heads':      10,
+        'tns_dense_mul':    7,
         'tns_dropout':      0.52,
-        'iLR':              8.3e-5,
+        'tns_dropout_att':  0.15,
+        'iLR':              4.8e-5,
         'do_clip':          False,
         'reduce':           'avg_max',
         'psdd': {
@@ -153,15 +154,15 @@ presets = {
         'do_clip':          False,
         'reduce':           'avg_max',
         'psdd': {
-            'time_drop':        [0.1, 0.3], # <<
-            'feat_drop':        [0.0, 0.2],
+            'time_drop':        [0.0, 0.99],
+            'feat_drop':        [0.0, 0.99],
             'tns_shared_lays':  (True, False),
             'tns_n_blocks':     [2, 10],
             'tns_n_heads':      (1, 2, 5, 10),
             'tns_dense_mul':    [2, 10],
-            'tns_dropout':      [0.2, 0.5], # <<
-            'tns_dropout_att':  [0.1, 0.5],
-            'iLR':              [1e-5, 1e-3],
+            'tns_dropout':      [0.0, 0.99],
+            'tns_dropout_att':  [0.0, 0.99],
+            'iLR':              [1e-7, 1e-3],
             'do_clip':          (True, False)}}, # 0.7898
 
     'seq_tns_ind': { # TNS with added input dropout
