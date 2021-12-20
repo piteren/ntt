@@ -180,14 +180,14 @@ presets = {
         'do_clip':          True,
         'reduce':           'avg_max',
         'psdd': {
-            'input_drop':       [0.1, 0.3],
+            'input_drop':       [0.0, 0.99],
             'tns_shared_lays':  (True, False),
             'tns_n_blocks':     [2, 10],
             'tns_n_heads':      (1, 2, 5, 10),
             'tns_dense_mul':    [2, 10],
-            'tns_dropout':      [0.25, 0.6],
-            'tns_dropout_att':  [0.0, 0.2],
-            'iLR':              [1e-5, 1e-3],
+            'tns_dropout':      [0.0, 0.99],
+            'tns_dropout_att':  [0.0, 0.99],
+            'iLR':              [1e-7, 1e-3],
             'do_clip':          (True, False)}}, # ??? 0.7952
 
     'seq_tat': {
